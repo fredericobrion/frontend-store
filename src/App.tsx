@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
+import Categories from './components/Categorias';
 import ShoppingCart from './pages/ShoppingCart';
 
 function App() {

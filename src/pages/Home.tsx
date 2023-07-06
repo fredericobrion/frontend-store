@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { getProductByQuery } from '../services/api';
 import { ProductInfo } from '../types';
 import ProductCard from '../components/ProductCard';
+import Categories from '../components/Categorias';
 
 function Home() {
   const [search, setSearch] = useState('');
@@ -56,6 +57,7 @@ function Home() {
             key={ item.id }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}
+      <Categories />
     </>
   );
 }

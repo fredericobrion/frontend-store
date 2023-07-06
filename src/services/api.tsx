@@ -24,3 +24,10 @@ export async function getProductByQuery(query: string) {
   const result = await response.json();
   return result;
 }
+
+export async function getProductByCategory(id: string) {
+  const URL_API = `https://api.mercadolibre.com/sites/MLB/search?category=${id}`;
+  const response = await fetch(URL_API);
+  const result = await response.json();
+  return result;
+}

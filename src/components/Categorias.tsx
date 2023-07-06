@@ -22,11 +22,11 @@ function Categories() {
   return (
     <aside>
       <h1>Categorias</h1>
-      {apiCategories.length && <div>
+      <div>
         { apiCategories.map((item) => (
-          <button data-testid="category" key={ item.data.id }>{ item.data.name }</button>
+          <button data-testid="category" key={ item.id }>{ item.name }</button>
         )) }
-      </div> }
+      </div>
     </aside>
   );
 }

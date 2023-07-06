@@ -1,5 +1,7 @@
+// Requisito 6 feito por Andrew e Frederico
+
 import { useState } from 'react';
-import { getProductByQuery, getProductByCategory } from '../services/api';
+import { getProductByQuery } from '../services/api';
 import { ProductInfo } from '../types';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categorias';

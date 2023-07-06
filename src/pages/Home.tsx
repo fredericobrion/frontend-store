@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { getProductByQuery } from '../services/api';
+import { getProductByQuery, getProductByCategory } from '../services/api';
 import { ProductInfo } from '../types';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categorias';
@@ -48,6 +48,7 @@ function Home() {
       >
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h3>
+      <Categories searched={ setSearched } productsList={ setProductsList } />
       {searched && (productsList.length
         ? productsList.map((item) => {
           return (<ProductCard
@@ -57,7 +58,6 @@ function Home() {
             key={ item.id }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}
-      <Categories />
     </>
   );
 }

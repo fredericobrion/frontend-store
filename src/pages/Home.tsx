@@ -1,3 +1,5 @@
+import Categories from '../components/Categorias';
+
 function Home() {
   return (
     <>
@@ -7,6 +9,7 @@ function Home() {
       >
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h3>
+      <Categories />
     </>
   );
 }

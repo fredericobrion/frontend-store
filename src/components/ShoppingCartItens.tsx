@@ -15,10 +15,12 @@ function ShoppingCartItens({
   const handleDelete = (itemName: string) => {
     const deletedItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
     purchasedItens.splice(deletedItemIndex, 1);
-    setPurchased(purchasedItens);
-    console.log(deletedItemIndex);
-    console.log(purchasedItens);
+    setPurchased([...purchasedItens]);
   };
+
+  const handleIncrease = () => {};
+
+  const handleDecrease = () => {};
 
   return (
     <div data-testid="product">

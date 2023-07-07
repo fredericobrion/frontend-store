@@ -1,11 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Home from './pages/Home';
-import Categories from './components/Categorias';
 import ShoppingCart from './pages/ShoppingCart';
+import { ProductInfo } from './types';
 
 function App() {
+  const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
+  const [firstLoading, setFirstLoading] = useState(true);
+
+  useEffect(() => {
+    if (firstLoading) {
+      const localStorageItens = JSON
+        .parse(localStorage.getItem('purchasedItens') || '{}');
+      if (localStorageItens.length) {
+        setPurchasedItens(localStorageItens);
+      }
+      setFirstLoading(false);
+    } else {
+      localStorage.setItem('purchasedItens', JSON.stringify(purchasedItens));
+    }
+  }, [purchasedItens]);
+
   return (
     <>
       <nav>
@@ -17,10 +33,16 @@ function App() {
         </Link>
       </nav>
       <Routes>
-        <Route path="/" element={ <Home /> } />
+        <Route
+          path="/"
+          element={ <Home
+            purchasedItens={ purchasedItens }
+            setPurchased={ setPurchasedItens }
+          /> }
+        />
         <Route
           path="/shoppingcart"
-          element={ <ShoppingCart /> }
+          element={ <ShoppingCart purchasedItens={ purchasedItens } /> }
         />
       </Routes>
     </>

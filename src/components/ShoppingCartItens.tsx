@@ -18,9 +18,19 @@ function ShoppingCartItens({
     setPurchased([...purchasedItens]);
   };
 
-  const handleIncrease = () => {};
+  const handleIncrease = (itemName: string) => {
+    const alterItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
+    purchasedItens[alterItemIndex].quantity = quantity + 1;
+    setPurchased([...purchasedItens]);
+  };
 
-  const handleDecrease = () => {};
+  const handleDecrease = (itemName: string) => {
+    const alterItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
+    if (quantity > 1) {
+      purchasedItens[alterItemIndex].quantity = quantity - 1;
+      setPurchased([...purchasedItens]);
+    }
+  };
 
   return (
     <div data-testid="product">
@@ -33,9 +43,19 @@ function ShoppingCartItens({
       <h4 data-testid="shopping-cart-product-name">{name}</h4>
       <img src={ image } alt="Foto do produto" />
       <p>{price}</p>
-      <button data-testid="product-increase-quantity">+</button>
+      <button
+        data-testid="product-increase-quantity"
+        onClick={ () => handleIncrease(name) }
+      >
+        +
+      </button>
       <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-      <button data-testid="product-decrease-quantity">-</button>
+      <button
+        data-testid="product-decrease-quantity"
+        onClick={ () => handleDecrease(name) }
+      >
+        -
+      </button>
     </div>
   );
 }

@@ -6,7 +6,12 @@ import { ProductInfo } from '../types';
 import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categorias';
 
-function Home() {
+type HomeProps = {
+  purchasedItens: ProductInfo[]
+  setPurchased: (arg: ProductInfo[]) => void
+};
+
+function Home({ purchasedItens, setPurchased }: HomeProps) {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<ProductInfo[]>([]);
   const [searched, setSearched] = useState(false);
@@ -57,6 +62,8 @@ function Home() {
             name={ item.title }
             image={ item.thumbnail }
             price={ item.price }
+            purchasedItens={ purchasedItens }
+            setPurchased={ setPurchased }
             key={ item.id }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}

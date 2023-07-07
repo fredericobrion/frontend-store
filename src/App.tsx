@@ -48,7 +48,13 @@ function App() {
             setPurchased={ setPurchasedItens }
           /> }
         />
-        <Route path="/details/:id" element={ <ProductsDetails /> } />
+        <Route
+          path="/details/:id"
+          element={ <ProductsDetails
+            purchasedItens={ purchasedItens }
+            setPurchased={ setPurchasedItens }
+          /> }
+        />
       </Routes>
     </>
   );

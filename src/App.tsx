@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import { ProductInfo } from './types';
 import ProductsDetails from './pages/ProductsDetails';
+import PagePayments from './pages/PagePayments';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
@@ -46,6 +47,12 @@ function App() {
           element={ <ShoppingCart
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
+          /> }
+        />
+        <Route
+          path="/shoppingcart/checkout"
+          element={ <PagePayments
+            purchasedItens={ purchasedItens }
           /> }
         />
         <Route

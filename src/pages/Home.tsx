@@ -65,6 +65,7 @@ function Home({ purchasedItens, setPurchased }: HomeProps) {
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchased }
             key={ item.id }
+            id={ item.id }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}
     </>

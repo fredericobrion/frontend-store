@@ -3,7 +3,7 @@ export type ProductInfo = {
   price: number,
   thumbnail: string,
   id?: string,
-  quantity?: number,
+  quantity: number,
 };
 
 export type CategoriesTypes = {

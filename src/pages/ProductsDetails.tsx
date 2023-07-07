@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../services/api';
+import { ProductInfo } from '../types';
 
 type DetailsInfo = {
   title: string,
@@ -9,9 +10,21 @@ type DetailsInfo = {
   thumbnail: string
 };
 
-function ProductsDetails() {
+type ProductDetailsProps = {
+  purchasedItens: ProductInfo[],
+  setPurchased: (arg: ProductInfo[]) => void
+};
+
+const INITIAL_OBJECT = {
+  title: '',
+  condition: '',
+  price: 0,
+  thumbnail: '',
+};
+
+function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) {
   const paransPage = useParams();
-  const [details, setDetails] = useState<DetailsInfo>();
+  const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
   const { id: productId = '' } = paransPage;
 
   useEffect(() => {
@@ -28,6 +41,22 @@ function ProductsDetails() {
     requestDataApi();
   }, []);
 
+  const handleClick = () => {
+    const foundIten = purchasedItens.some((iten) => iten.title === details?.title);
+    if (foundIten) {
+      const index = purchasedItens.findIndex((iten) => iten.title === details?.title);
+      purchasedItens[index].quantity += 1;
+      setPurchased([...purchasedItens]);
+    } else {
+      setPurchased([...purchasedItens, {
+        title: details.title,
+        price: details.price,
+        thumbnail: details.thumbnail,
+        quantity: 1,
+      }]);
+    }
+  };
+
   return (
     <div>
       <h4 data-testid="product-detail-name">{ details?.title }</h4>
@@ -38,6 +67,12 @@ function ProductsDetails() {
       />
       <p data-testid="product-detail-price">{ details?.price }</p>
       <p>{ details?.condition }</p>
+      <button
+        onClick={ handleClick }
+        data-testid="product-detail-add-to-cart"
+      >
+        Adicionar ao carrinho
+      </button>
     </div>
   );
 }

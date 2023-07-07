@@ -4,6 +4,7 @@ import './App.css';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import { ProductInfo } from './types';
+import ProductsDetails from './pages/ProductsDetails';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
@@ -44,6 +45,7 @@ function App() {
           path="/shoppingcart"
           element={ <ShoppingCart purchasedItens={ purchasedItens } /> }
         />
+        <Route path="/details/:id" element={ <ProductsDetails /> } />
       </Routes>
     </>
   );

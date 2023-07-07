@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ProductInfo } from '../types';
 
 type ProductCardProps = {
+  id: string,
   name: string,
   price: number,
   image: string,
@@ -9,7 +11,7 @@ type ProductCardProps = {
   setPurchased?: (arg: ProductInfo[]) => void
 };
 
-function ProductCard({ name,
+function ProductCard({ name, id,
   price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
@@ -36,9 +38,11 @@ function ProductCard({ name,
 
   return (
     <div data-testid="product">
-      <h4>{name}</h4>
-      <img src={ image } alt="Foto do produto" />
-      <p>{price}</p>
+      <Link to={ `/details/${id} ` } data-testid="product-detail-link">
+        <h4>{name}</h4>
+        <img src={ image } alt="Foto do produto" />
+        <p>{price}</p>
+      </Link>
       <button
         data-testid="product-add-to-cart"
         onClick={ handleClick }

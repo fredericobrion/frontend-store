@@ -25,7 +25,6 @@ function Categories({ searched, productsList }: CategoriesProps) {
   const handleClick = async (itemId: string) => {
     searched(true);
     const itensByCategory = await getProductByCategory(itemId);
-    console.log(itensByCategory);
     const filteredInfoItens = itensByCategory.results
       .map(({ title, price, thumbnail, id }: ProductInfo) => {
         return {

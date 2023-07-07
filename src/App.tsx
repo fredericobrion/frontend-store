@@ -42,7 +42,10 @@ function App() {
         />
         <Route
           path="/shoppingcart"
-          element={ <ShoppingCart purchasedItens={ purchasedItens } /> }
+          element={ <ShoppingCart
+            purchasedItens={ purchasedItens }
+            setPurchased={ setPurchasedItens }
+          /> }
         />
       </Routes>
     </>

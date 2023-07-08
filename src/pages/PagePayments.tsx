@@ -1,32 +1,46 @@
-import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { ProductInfo } from '../types';
 import CheckoutItemCard from '../components/CheckoutItemCard';
 
 type PaymentProps = {
   purchasedItens: ProductInfo[],
+  setPurchased: (arg: ProductInfo[]) => void
 };
 type UserInforTypes = {
-  nome: string,
+  userName: string,
   email: string,
   cpf: string,
-  telefone: string
+  phone: string
   cep: string,
-  endereço: string,
+  address: string,
+  payment: string,
 };
 
 const INITIAL_INFOS = {
-  nome: '',
+  userName: '',
   email: '',
   cpf: '',
-  telefone: '',
+  phone: '',
   cep: '',
-  endereço: '',
+  address: '',
+  payment: '',
 };
 
-function PagePayments({ purchasedItens }: PaymentProps) {
+function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
+  const [infoSubmit, setInfoSubmit] = useState<UserInforTypes>(INITIAL_INFOS);
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
-  const { nome, email, cpf, telefone, cep, endereço } = userInfo;
-  const [isFilled, setIsFilled] = useState(false);
+  const { userName, email, cpf, phone, cep, address } = userInfo;
+  const [chekedStatus] = useState<boolean>();
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const submitINfoIsValid = (value1:UserInforTypes, value2:UserInforTypes) => {
+    const initialData = Object.values(value1);
+    const dataSubmit = Object.values(value2);
+    return initialData.length === dataSubmit.length
+    && initialData.every((values) => dataSubmit.includes(values));
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -35,32 +49,46 @@ function PagePayments({ purchasedItens }: PaymentProps) {
       [name]: value,
     });
   };
+  const handleClickRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id } = e.target;
+    setUserInfo({
+      ...userInfo,
+      payment: id,
+    });
+  };
 
+  const handleclickButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    setInfoSubmit(userInfo);
+    setUserInfo(INITIAL_INFOS);
+    navigate('/');
+  };
   return (
     <div>
       <div>
         {purchasedItens.map((item: ProductInfo) => {
+          const { id, title, thumbnail, price, quantity } = item;
           return (
             <CheckoutItemCard
-              key={ item.title }
-              title={ item.title }
-              thumbnail={ item.thumbnail }
-              price={ item.price }
-              quantity={ item.quantity }
+              key={ id }
+              title={ title }
+              thumbnail={ thumbnail }
+              price={ price }
+              quantity={ quantity }
             />
           );
         })}
       </div>
 
       <form>
-        <label htmlFor="nome">
+        <label htmlFor="userName">
           Nome
           <input
-            value={ nome }
+            value={ userName }
             onChange={ handleChange }
             data-testid="checkout-fullname"
             required
-            name="nome"
+            name="userName"
             type="text"
           />
         </label>
@@ -89,12 +117,12 @@ function PagePayments({ purchasedItens }: PaymentProps) {
           />
         </label>
 
-        <label htmlFor="telefone">
+        <label htmlFor="phone">
           Numero de Telefone
           <input
-            value={ telefone }
+            value={ phone }
             required
-            name="telefone"
+            name="phone"
             type="number"
             data-testid="checkout-phone"
             onChange={ handleChange }
@@ -113,12 +141,12 @@ function PagePayments({ purchasedItens }: PaymentProps) {
           />
         </label>
 
-        <label htmlFor="endereço">
+        <label htmlFor="address">
           Endereço
           <input
-            value={ endereço }
+            value={ address }
             required
-            name="endereço"
+            name="address"
             type="text"
             data-testid="checkout-address"
             onChange={ handleChange }
@@ -128,6 +156,8 @@ function PagePayments({ purchasedItens }: PaymentProps) {
 
           <label htmlFor="ticket">
             <input
+              checked={ chekedStatus }
+              onChange={ handleClickRadio }
               data-testid="ticket-payment"
               id="ticket"
               name="payment-method"
@@ -138,6 +168,8 @@ function PagePayments({ purchasedItens }: PaymentProps) {
 
           <label htmlFor="visa-card">
             <input
+              checked={ chekedStatus }
+              onChange={ handleClickRadio }
               id="visa-card"
               name="payment-method"
               type="radio"
@@ -148,7 +180,8 @@ function PagePayments({ purchasedItens }: PaymentProps) {
 
           <label htmlFor="masterCard-card">
             <input
-              checked={ false }
+              checked={ chekedStatus }
+              onChange={ handleClickRadio }
               data-testid="master-payment"
               id="masterCard-card"
               name="payment-method"
@@ -159,6 +192,9 @@ function PagePayments({ purchasedItens }: PaymentProps) {
 
           <label htmlFor="eloCard">
             <input
+              required
+              checked={ chekedStatus }
+              onChange={ handleClickRadio }
               data-testid="elo-payment"
               id="eloCard"
               name="payment-method"
@@ -167,10 +203,16 @@ function PagePayments({ purchasedItens }: PaymentProps) {
             Elo
           </label>
         </div>
-        <button data-testid="checkout-btn" type="submit">Finalizar Compra</button>
+        <button
+          onClick={ handleclickButton }
+          data-testid="checkout-btn"
+          type="submit"
+        >
+          Finalizar Compra
+        </button>
       </form>
 
-      {isFilled && <p data-testid="error-msg">Campos inválidos</p>}
+      {isValid && <span data-testid="error-msg">Campos inválidos</span>}
     </div>
   );
 }

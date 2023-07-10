@@ -228,6 +228,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             />
             Elo
           </label>
+
         </div>
         <button
           onClick={ handleclickButton }

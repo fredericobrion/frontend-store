@@ -40,9 +40,8 @@ const INITIAL_VERIFICATION = {
 function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
   const { userName, email, cpf, phone, cep, address } = userInfo;
-  const [checkedStatus, setCheckedStatus] = useState<boolean>(false);
+  const [checkedStatus, setCheckedStatus] = useState<boolean>(true);
   const [isValid, setIsValid] = useState<InputVerification>(INITIAL_VERIFICATION);
-  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +73,6 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   };
 
   const handleclickButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setClicked(true);
     e.preventDefault();
     const allInputsOk = Object.values(isValid).every((input) => input === true);
     setCheckedStatus(allInputsOk);
@@ -227,8 +225,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
         </button>
       </form>
 
-      {(clicked && !checkedStatus)
-        && <span data-testid="error-msg">Campos inválidos</span>}
+      {!checkedStatus && <span data-testid="error-msg">Campos inválidos</span>}
     </div>
   );
 }

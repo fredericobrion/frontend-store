@@ -11,6 +11,10 @@ function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
   const [firstLoading, setFirstLoading] = useState(true);
 
+  const productsQuantity = purchasedItens.reduce((soma, quantity) => {
+    return soma + quantity.quantity;
+  }, 0);
+
   useEffect(() => {
     if (firstLoading) {
       const localStorageItens = JSON
@@ -31,7 +35,11 @@ function App() {
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
-          Carrinho de compras
+          <p
+            data-testid="shopping-cart-size"
+          >
+            { productsQuantity }
+          </p>
         </Link>
       </nav>
       <Routes>

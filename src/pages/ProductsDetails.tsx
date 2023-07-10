@@ -9,6 +9,7 @@ type DetailsInfo = {
   condition: string,
   price: number,
   thumbnail: string
+  available: number,
 };
 
 type ProductDetailsProps = {
@@ -21,6 +22,7 @@ const INITIAL_OBJECT = {
   condition: '',
   price: 0,
   thumbnail: '',
+  available: 0,
 };
 
 const INITIAL_REVIEW = {
@@ -48,6 +50,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         price,
         thumbnail,
         condition,
+        available: data.available_quantity,
       };
       setDetails(filterDetails);
     };
@@ -114,8 +117,10 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         price: details.price,
         thumbnail: details.thumbnail,
         quantity: 1,
+        available_quantity: details.available,
       }]);
     }
+    console.log(purchasedItens);
   };
 
   return (

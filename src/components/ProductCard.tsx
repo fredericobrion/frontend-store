@@ -7,23 +7,24 @@ type ProductCardProps = {
   name: string,
   price: number,
   image: string,
+  available: number,
   purchasedItens?: ProductInfo[]
   setPurchased?: (arg: ProductInfo[]) => void
 };
 
-function ProductCard({ name, id,
+function ProductCard({ name, id, available,
   price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
-
   const handleClick = () => {
     setQuantity(quantity + 1);
     const foundItenIndex = purchasedItens.findIndex((iten) => iten.title === name);
     if (foundItenIndex === -1) {
       setPurchased([...purchasedItens, {
         title: name,
-        price,
         thumbnail: image,
+        price,
         quantity,
+        available_quantity: available,
       }]);
     } else {
       purchasedItens.splice(foundItenIndex, 1);
@@ -32,6 +33,7 @@ function ProductCard({ name, id,
         price,
         thumbnail: image,
         quantity,
+        available_quantity: available,
       }]);
     }
   };

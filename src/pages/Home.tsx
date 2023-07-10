@@ -24,12 +24,13 @@ function Home({ purchasedItens, setPurchased }: HomeProps) {
   const handleClick = async (query: string) => {
     const returnedItens = await getProductByQuery(query);
     const filteredInfoItens = returnedItens.results
-      .map(({ title, price, thumbnail, id }: ProductInfo) => {
+      .map(({ title, price, thumbnail, id, available_quantity }: ProductInfo) => {
         return {
           title,
           price,
           thumbnail,
           id,
+          available_quantity,
         };
       });
     setProductsList(filteredInfoItens);
@@ -66,6 +67,7 @@ function Home({ purchasedItens, setPurchased }: HomeProps) {
             setPurchased={ setPurchased }
             key={ item.id }
             id={ item.id }
+            available={ item.available_quantity }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}
     </>

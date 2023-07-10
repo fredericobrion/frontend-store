@@ -31,15 +31,22 @@ const INITIAL_REVIEW = {
   rating: '0',
 };
 
+const INITIAL_REVIEW = {
+  email: '',
+  text: '',
+  rating: '0',
+};
+
 function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) {
   const paransPage = useParams();
   const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
   const { id: productId = '' } = paransPage;
 
-  const [firstLoading, setFirstLoading] = useState(true);
+  const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[{}, {}]');
+
   const [isValid, setIsValid] = useState(true);
   const [review, setReview] = useState(INITIAL_REVIEW);
-  const [reviewList, setReviewList] = useState<Review[]>([]);
+  const [reviewList, setReviewList] = useState<Review[]>(localStorageItens);
 
   useEffect(() => {
     const requestDataApi = async () => {
@@ -56,20 +63,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
     };
     requestDataApi();
   }, []);
-
-  useEffect(() => {
-    if (firstLoading) {
-      const localStorageItens = JSON
-        .parse(localStorage.getItem(productId) || '{}');
-      if (localStorageItens.length) {
-        setReviewList(localStorageItens);
-      }
-      setFirstLoading(false);
-    } else {
-      localStorage.setItem(productId, JSON.stringify(reviewList));
-    }
-  }, [reviewList]);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.target;
@@ -79,8 +73,9 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
     });
   };
 
-  const handleClickReview = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    const { value } = e.target;
+  const handleClickReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = e;
+    const { value } = target;
     setReview({
       ...review,
       rating: value,
@@ -151,7 +146,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="1"
             checked={ review.rating === '1' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           1
         </label>
@@ -163,7 +158,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="2"
             checked={ review.rating === '2' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           2
         </label>
@@ -175,7 +170,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="3"
             checked={ review.rating === '3' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           3
         </label>
@@ -187,7 +182,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="4"
             checked={ review.rating === '4' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           4
         </label>
@@ -199,7 +194,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="5"
             checked={ review.rating === '5' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           5
         </label>

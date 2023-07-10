@@ -5,7 +5,7 @@ type ProductReviewProps = {
 };
 
 function ProductReview({ reviewInfo }: ProductReviewProps) {
-  const { email, text, rating } = reviewInfo;
+  const { email, rating, text } = reviewInfo;
   return (
     <div>
       <span data-testid="review-card-email">{ email }</span>

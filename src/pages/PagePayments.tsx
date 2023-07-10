@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { ProductInfo } from '../types';
+import { ProductInfo, InputVerification } from '../types';
 import CheckoutItemCard from '../components/CheckoutItemCard';
 
 type PaymentProps = {
@@ -27,12 +27,22 @@ const INITIAL_INFOS = {
   payment: '',
 };
 
+const INITIAL_VERIFICATION = {
+  userName: false,
+  email: false,
+  cpf: false,
+  phone: false,
+  cep: false,
+  address: false,
+  payment: true,
+};
+
 function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   const [infoSubmit, setInfoSubmit] = useState<UserInforTypes>(INITIAL_INFOS);
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
   const { userName, email, cpf, phone, cep, address } = userInfo;
   const [chekedStatus] = useState<boolean>();
-  const [isValid, setIsValid] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<InputVerification>(INITIAL_VERIFICATION);
   const navigate = useNavigate();
 
   const submitINfoIsValid = (value1:UserInforTypes, value2:UserInforTypes) => {
@@ -44,25 +54,42 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    if (value.length > 0) {
+      setIsValid({
+        ...isValid,
+        [name]: true,
+      });
+    } else {
+      setIsValid({
+        ...isValid,
+        [name]: false,
+      });
+    }
     setUserInfo({
       ...userInfo,
       [name]: value,
     });
   };
+
   const handleClickRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id } = e.target;
+
     setUserInfo({
       ...userInfo,
       payment: id,
     });
   };
 
+  let allInputsOk = true;
+
   const handleclickButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setInfoSubmit(userInfo);
     setUserInfo(INITIAL_INFOS);
     submitINfoIsValid(INITIAL_INFOS, infoSubmit);
+    allInputsOk = Object.values(isValid).every((input) => input === true);
   };
+
   return (
     <div>
       <div>
@@ -156,7 +183,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="ticket">
             <input
-              checked={ chekedStatus }
+              checked
               onChange={ handleClickRadio }
               data-testid="ticket-payment"
               id="ticket"
@@ -168,7 +195,6 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="visa-card">
             <input
-              checked={ chekedStatus }
               onChange={ handleClickRadio }
               id="visa-card"
               name="payment-method"
@@ -180,7 +206,6 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="masterCard-card">
             <input
-              checked={ chekedStatus }
               onChange={ handleClickRadio }
               data-testid="master-payment"
               id="masterCard-card"
@@ -192,8 +217,6 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="eloCard">
             <input
-              required
-              checked={ chekedStatus }
               onChange={ handleClickRadio }
               data-testid="elo-payment"
               id="eloCard"
@@ -212,7 +235,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
         </button>
       </form>
 
-      {isValid && <span data-testid="error-msg">Campos inválidos</span>}
+      {!allInputsOk && <span data-testid="error-msg">Campos inválidos</span>}
     </div>
   );
 }

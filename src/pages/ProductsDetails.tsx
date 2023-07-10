@@ -30,11 +30,12 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
   useEffect(() => {
     const requestDataApi = async () => {
       const data = await getProductById(productId);
+      const { title, price, thumbnail, condition } = data;
       const filterDetails = {
-        title: data.title,
-        price: data.price,
-        thumbnail: data.thumbnail,
-        condition: data.condition,
+        title,
+        price,
+        thumbnail,
+        condition,
       };
       setDetails(filterDetails);
     };
@@ -42,9 +43,9 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
   }, []);
 
   const handleClick = () => {
-    const foundIten = purchasedItens.some((iten) => iten.title === details?.title);
+    const foundIten = purchasedItens.some((iten) => iten.title === details.title);
     if (foundIten) {
-      const index = purchasedItens.findIndex((iten) => iten.title === details?.title);
+      const index = purchasedItens.findIndex((iten) => iten.title === details.title);
       purchasedItens[index].quantity += 1;
       setPurchased([...purchasedItens]);
     } else {
@@ -59,14 +60,14 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
 
   return (
     <div>
-      <h4 data-testid="product-detail-name">{ details?.title }</h4>
+      <h4 data-testid="product-detail-name">{ details.title }</h4>
       <img
         data-testid="product-detail-image"
-        src={ details?.thumbnail }
+        src={ details.thumbnail }
         alt="product-img"
       />
-      <p data-testid="product-detail-price">{ details?.price }</p>
-      <p>{ details?.condition }</p>
+      <p data-testid="product-detail-price">{ details.price }</p>
+      <p>{ details.condition }</p>
       <button
         onClick={ handleClick }
         data-testid="product-detail-add-to-cart"

@@ -10,3 +10,13 @@ export type CategoriesTypes = {
   id: string,
   name: string,
 };
+
+export type InputVerification = {
+  userName: boolean,
+  email: boolean,
+  cpf: boolean,
+  phone: boolean,
+  cep: boolean,
+  address: boolean,
+  payment: boolean,
+};

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ProductInfo } from '../types';
 import ShoppingCartItens from '../components/ShoppingCartItens';
 
@@ -26,6 +27,12 @@ function ShoppingCart({ purchasedItens, setPurchased }: ShoppingCardProps) {
           />
         );
       })}
+      <Link
+        data-testid="checkout-products"
+        to="/shoppingcart/checkout"
+      >
+        Finalizar Compra
+      </Link>
     </>
   );
 }

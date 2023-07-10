@@ -4,6 +4,7 @@ export type ProductInfo = {
   thumbnail: string,
   id?: string,
   quantity: number,
+  available_quantity: number,
 };
 
 export type CategoriesTypes = {

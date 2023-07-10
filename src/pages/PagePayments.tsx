@@ -41,8 +41,9 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   const [infoSubmit, setInfoSubmit] = useState<UserInforTypes>(INITIAL_INFOS);
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
   const { userName, email, cpf, phone, cep, address } = userInfo;
-  const [chekedStatus] = useState<boolean>();
+  const [checkedStatus, setCheckedStatus] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<InputVerification>(INITIAL_VERIFICATION);
+  const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
 
   const submitINfoIsValid = (value1:UserInforTypes, value2:UserInforTypes) => {
@@ -80,14 +81,16 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
     });
   };
 
-  let allInputsOk = true;
-
   const handleclickButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    setClicked(true);
     e.preventDefault();
     setInfoSubmit(userInfo);
-    setUserInfo(INITIAL_INFOS);
     submitINfoIsValid(INITIAL_INFOS, infoSubmit);
-    allInputsOk = Object.values(isValid).every((input) => input === true);
+    const allInputsOk = Object.values(isValid).every((input) => input === true);
+    setCheckedStatus(allInputsOk);
+    if (allInputsOk) setPurchased([]);
+    if (allInputsOk) setUserInfo(INITIAL_INFOS);
+    if (allInputsOk) navigate('/');
   };
 
   return (
@@ -138,7 +141,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             value={ cpf }
             required
             name="cpf"
-            type="number"
+            type="text"
             data-testid="checkout-cpf"
             onChange={ handleChange }
           />
@@ -150,7 +153,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             value={ phone }
             required
             name="phone"
-            type="number"
+            type="text"
             data-testid="checkout-phone"
             onChange={ handleChange }
           />
@@ -162,7 +165,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             value={ cep }
             required
             name="cep"
-            type="number"
+            type="text"
             data-testid="checkout-cep"
             onChange={ handleChange }
           />
@@ -235,7 +238,8 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
         </button>
       </form>
 
-      {!allInputsOk && <span data-testid="error-msg">Campos inválidos</span>}
+      {(clicked && !checkedStatus)
+        && <span data-testid="error-msg">Campos inválidos</span>}
     </div>
   );
 }

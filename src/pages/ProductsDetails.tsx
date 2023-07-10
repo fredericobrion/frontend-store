@@ -66,8 +66,9 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
     });
   };
 
-  const handleClickReview = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-    const { value } = e.target;
+  const handleClickReview = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { target } = e;
+    const { value } = target;
     setReview({
       ...review,
       rating: value,
@@ -148,7 +149,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="2"
             checked={ review.rating === '2' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           2
         </label>

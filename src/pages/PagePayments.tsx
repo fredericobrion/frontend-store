@@ -38,20 +38,12 @@ const INITIAL_VERIFICATION = {
 };
 
 function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
-  const [infoSubmit, setInfoSubmit] = useState<UserInforTypes>(INITIAL_INFOS);
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
   const { userName, email, cpf, phone, cep, address } = userInfo;
   const [checkedStatus, setCheckedStatus] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<InputVerification>(INITIAL_VERIFICATION);
   const [clicked, setClicked] = useState(false);
   const navigate = useNavigate();
-
-  const submitINfoIsValid = (value1:UserInforTypes, value2:UserInforTypes) => {
-    const initialData = Object.values(value1);
-    const dataSubmit = Object.values(value2);
-    return initialData.length === dataSubmit.length
-    && initialData.every((values) => dataSubmit.includes(values));
-  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -84,12 +76,9 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   const handleclickButton = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setClicked(true);
     e.preventDefault();
-    setInfoSubmit(userInfo);
-    submitINfoIsValid(INITIAL_INFOS, infoSubmit);
     const allInputsOk = Object.values(isValid).every((input) => input === true);
     setCheckedStatus(allInputsOk);
     if (allInputsOk) setPurchased([]);
-    if (allInputsOk) setUserInfo(INITIAL_INFOS);
     if (allInputsOk) navigate('/');
   };
 

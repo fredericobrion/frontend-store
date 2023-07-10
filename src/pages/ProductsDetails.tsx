@@ -63,7 +63,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
     };
     requestDataApi();
   }, []);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.target;

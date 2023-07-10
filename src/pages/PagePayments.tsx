@@ -34,7 +34,7 @@ const INITIAL_VERIFICATION = {
   phone: false,
   cep: false,
   address: false,
-  payment: true,
+  payment: false,
 };
 
 function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
@@ -65,7 +65,10 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
   const handleClickRadio = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id } = e.target;
-
+    setIsValid({
+      ...isValid,
+      payment: true,
+    });
     setUserInfo({
       ...userInfo,
       payment: id,
@@ -173,7 +176,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="ticket">
             <input
-              checked
+              checked={ userInfo.payment === 'ticket' }
               onChange={ handleClickRadio }
               data-testid="ticket-payment"
               id="ticket"
@@ -185,6 +188,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="visa-card">
             <input
+              checked={ userInfo.payment === 'visa-card' }
               onChange={ handleClickRadio }
               id="visa-card"
               name="payment-method"
@@ -196,6 +200,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="masterCard-card">
             <input
+              checked={ userInfo.payment === 'masterCard-card' }
               onChange={ handleClickRadio }
               data-testid="master-payment"
               id="masterCard-card"
@@ -207,6 +212,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
 
           <label htmlFor="eloCard">
             <input
+              checked={ userInfo.payment === 'eloCard' }
               onChange={ handleClickRadio }
               data-testid="elo-payment"
               id="eloCard"
@@ -215,6 +221,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             />
             Elo
           </label>
+
         </div>
         <button
           onClick={ handleclickButton }

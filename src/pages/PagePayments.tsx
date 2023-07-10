@@ -61,7 +61,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
     e.preventDefault();
     setInfoSubmit(userInfo);
     setUserInfo(INITIAL_INFOS);
-    navigate('/');
+    submitINfoIsValid(INITIAL_INFOS, infoSubmit);
   };
   return (
     <div>
@@ -70,7 +70,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
           const { id, title, thumbnail, price, quantity } = item;
           return (
             <CheckoutItemCard
-              key={ id }
+              key={ title }
               title={ title }
               thumbnail={ thumbnail }
               price={ price }

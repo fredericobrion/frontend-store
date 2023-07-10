@@ -26,12 +26,13 @@ function Categories({ searched, productsList }: CategoriesProps) {
     searched(true);
     const itensByCategory = await getProductByCategory(itemId);
     const filteredInfoItens = itensByCategory.results
-      .map(({ title, price, thumbnail, id }: ProductInfo) => {
+      .map(({ title, price, thumbnail, id, available_quantity }: ProductInfo) => {
         return {
           title,
           price,
           thumbnail,
           id,
+          available_quantity,
         };
       });
     productsList(filteredInfoItens);

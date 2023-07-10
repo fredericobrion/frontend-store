@@ -9,6 +9,7 @@ type DetailsInfo = {
   condition: string,
   price: number,
   thumbnail: string
+  available: number,
 };
 
 type ProductDetailsProps = {
@@ -21,6 +22,13 @@ const INITIAL_OBJECT = {
   condition: '',
   price: 0,
   thumbnail: '',
+  available: 0,
+};
+
+const INITIAL_REVIEW = {
+  email: '',
+  text: '',
+  rating: '0',
 };
 
 const INITIAL_REVIEW = {
@@ -30,14 +38,12 @@ const INITIAL_REVIEW = {
 };
 
 function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) {
-  console.log('renderizou');
   const paransPage = useParams();
   const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
   const { id: productId = '' } = paransPage;
 
   const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[{}, {}]');
 
-  const [firstLoading, setFirstLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);
   const [review, setReview] = useState(INITIAL_REVIEW);
   const [reviewList, setReviewList] = useState<Review[]>(localStorageItens);
@@ -51,12 +57,13 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         price,
         thumbnail,
         condition,
+        available: data.available_quantity,
       };
       setDetails(filterDetails);
     };
     requestDataApi();
   }, []);
-
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.target;
@@ -105,8 +112,10 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         price: details.price,
         thumbnail: details.thumbnail,
         quantity: 1,
+        available_quantity: details.available,
       }]);
     }
+    console.log(purchasedItens);
   };
 
   return (
@@ -137,7 +146,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="1"
             checked={ review.rating === '1' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           1
         </label>
@@ -161,7 +170,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="3"
             checked={ review.rating === '3' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           3
         </label>
@@ -173,7 +182,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="4"
             checked={ review.rating === '4' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           4
         </label>
@@ -185,7 +194,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             type="radio"
             value="5"
             checked={ review.rating === '5' }
-            onClick={ handleClickReview }
+            onChange={ handleClickReview }
           />
           5
         </label>

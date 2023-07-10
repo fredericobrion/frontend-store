@@ -20,3 +20,9 @@ export type InputVerification = {
   address: boolean,
   payment: boolean,
 };
+
+export type Review = {
+  email: string,
+  text: string,
+  rating: string,
+};

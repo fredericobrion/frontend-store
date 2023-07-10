@@ -35,7 +35,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
   const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
   const { id: productId = '' } = paransPage;
 
-  const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[]');
+  const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[{}, {}]');
 
   const [firstLoading, setFirstLoading] = useState(true);
   const [isValid, setIsValid] = useState(true);

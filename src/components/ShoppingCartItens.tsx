@@ -24,7 +24,10 @@ function ShoppingCartItens({
 
   const handleIncrease = (itemName: string) => {
     const alterItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
-    purchasedItens[alterItemIndex].quantity = quantity + 1;
+    const alterItem = purchasedItens[alterItemIndex];
+    if (alterItem.quantity < alterItem.available_quantity) {
+      alterItem.quantity = quantity + 1;
+    }
     setPurchased([...purchasedItens]);
     setQuantity(quantityTotal + 1);
   };

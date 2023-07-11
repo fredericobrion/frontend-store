@@ -26,12 +26,13 @@ function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: Home
   const handleClick = async (query: string) => {
     const returnedItens = await getProductByQuery(query);
     const filteredInfoItens = returnedItens.results
-      .map(({ title, price, thumbnail, id }: ProductInfo) => {
+      .map(({ title, price, thumbnail, id, available_quantity }: ProductInfo) => {
         return {
           title,
           price,
           thumbnail,
           id,
+          available_quantity,
         };
       });
     setProductsList(filteredInfoItens);
@@ -60,16 +61,19 @@ function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: Home
       <Categories searched={ setSearched } productsList={ setProductsList } />
       {searched && (productsList.length
         ? productsList.map((item) => {
+          console.log(item);
           return (<ProductCard
             name={ item.title }
             image={ item.thumbnail }
             price={ item.price }
+            shipping={ item.shipping }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchased }
             setQuantityTotal={ setQuantity }
             quantityTotal={ quantityTotal }
             key={ item.id }
             id={ item.id }
+            available={ item.available_quantity }
           />);
         }) : <p>Nenhum produto foi encontrado</p>)}
     </>

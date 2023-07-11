@@ -4,6 +4,10 @@ export type ProductInfo = {
   thumbnail: string,
   id?: string,
   quantity: number,
+  available_quantity: number,
+  shipping: {
+    free_shipping: boolean,
+  } | boolean,
 };
 
 export type CategoriesTypes = {
@@ -19,4 +23,10 @@ export type InputVerification = {
   cep: boolean,
   address: boolean,
   payment: boolean,
+};
+
+export type Review = {
+  email: string,
+  text: string,
+  rating: string,
 };

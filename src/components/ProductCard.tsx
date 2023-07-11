@@ -7,17 +7,18 @@ type ProductCardProps = {
   name: string,
   price: number,
   image: string,
+  available: number,
+  shipping: boolean,
   purchasedItens?: ProductInfo[]
   setPurchased?: (arg: ProductInfo[]) => void,
   setQuantityTotal: (arg: number) => void,
   quantityTotal: number,
 };
 
-function ProductCard({ name, id,
-  price, image, purchasedItens = [], setPurchased = () => {},
-  setQuantityTotal, quantityTotal }: ProductCardProps) {
-  const [quantity, setQuantity] = useState(1);
 
+function ProductCard({ name, id, available, shipping,
+  price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
+  const [quantity, setQuantity] = useState(1);
   const handleClick = () => {
     setQuantityTotal(quantityTotal + 1);
     setQuantity(quantity + 1);
@@ -25,9 +26,11 @@ function ProductCard({ name, id,
     if (foundItenIndex === -1) {
       setPurchased([...purchasedItens, {
         title: name,
-        price,
         thumbnail: image,
+        price,
         quantity,
+        available_quantity: available,
+        shipping,
       }]);
     } else {
       purchasedItens.splice(foundItenIndex, 1);
@@ -36,6 +39,8 @@ function ProductCard({ name, id,
         price,
         thumbnail: image,
         quantity,
+        available_quantity: available,
+        shipping,
       }]);
     }
   };
@@ -47,6 +52,7 @@ function ProductCard({ name, id,
         <img src={ image } alt="Foto do produto" />
         <p>{price}</p>
       </Link>
+      {shipping && <span data-testid="free-shipping">Frete grátis</span>}
       <button
         data-testid="product-add-to-cart"
         onClick={ handleClick }

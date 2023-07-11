@@ -16,6 +16,7 @@ function App() {
   const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
   useEffect(() => {
+    console.log(purchasedItens);
     if (firstLoading) {
       const localStorageItens = JSON
         .parse(localStorage.getItem('purchasedItens') || '{}');

@@ -15,8 +15,7 @@ type ProductCardProps = {
   quantityTotal: number,
 };
 
-
-function ProductCard({ name, id, available, shipping,
+function ProductCard({ name, id, available, shipping, quantityTotal, setQuantityTotal,
   price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
   const handleClick = () => {

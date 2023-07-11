@@ -6,14 +6,18 @@ type ShoppingCartItensProps = {
   image: string,
   quantity?: number,
   purchasedItens: ProductInfo[],
-  setPurchased: (arg: ProductInfo[]) => void
+  setPurchased: (arg: ProductInfo[]) => void,
+  quantityTotal: number,
+  setQuantity: (arg: number) => void,
 };
 
 function ShoppingCartItens({
   name, price, image, quantity = 0, purchasedItens, setPurchased,
-}: ShoppingCartItensProps) {
+  setQuantity, quantityTotal }: ShoppingCartItensProps) {
   const handleDelete = (itemName: string) => {
     const deletedItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
+    console.log(purchasedItens[deletedItemIndex].quantity);
+    setQuantity(quantityTotal - purchasedItens[deletedItemIndex].quantity);
     purchasedItens.splice(deletedItemIndex, 1);
     setPurchased([...purchasedItens]);
   };
@@ -25,6 +29,7 @@ function ShoppingCartItens({
       alterItem.quantity = quantity + 1;
     }
     setPurchased([...purchasedItens]);
+    setQuantity(quantityTotal + 1);
   };
 
   const handleDecrease = (itemName: string) => {
@@ -33,6 +38,7 @@ function ShoppingCartItens({
       purchasedItens[alterItemIndex].quantity = quantity - 1;
       setPurchased([...purchasedItens]);
     }
+    setQuantity(quantityTotal - 1);
   };
 
   return (

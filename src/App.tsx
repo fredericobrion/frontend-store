@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
-import './App.css';
-import Home from './pages/Home';
-import ShoppingCart from './pages/ShoppingCart';
+import React, { useEffect, useState } from 'react';
 import { ProductInfo } from './types';
 import ProductsDetails from './pages/ProductsDetails';
+import ShoppingCart from './pages/ShoppingCart';
 import PagePayments from './pages/PagePayments';
+import Home from './pages/Home';
+import './App.css';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
   const [firstLoading, setFirstLoading] = useState(true);
+
+  const localStorageTotalQuantity = JSON
+    .parse(localStorage.getItem('quantityTotal') || '0');
+  const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
   useEffect(() => {
     console.log(purchasedItens);
@@ -25,6 +29,10 @@ function App() {
     }
   }, [purchasedItens]);
 
+  useEffect(() => {
+    localStorage.setItem('quantityTotal', JSON.stringify(quantityTotal));
+  }, [quantityTotal]);
+
   return (
     <>
       <nav>
@@ -32,7 +40,11 @@ function App() {
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
-          Carrinho de compras
+          <p
+            data-testid="shopping-cart-size"
+          >
+            { quantityTotal }
+          </p>
         </Link>
       </nav>
       <Routes>
@@ -41,11 +53,15 @@ function App() {
           element={ <Home
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
           /> }
         />
         <Route
           path="/shoppingcart"
           element={ <ShoppingCart
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
           /> }

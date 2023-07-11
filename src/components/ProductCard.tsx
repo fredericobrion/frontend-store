@@ -10,13 +10,17 @@ type ProductCardProps = {
   available: number,
   shipping: boolean,
   purchasedItens?: ProductInfo[]
-  setPurchased?: (arg: ProductInfo[]) => void
+  setPurchased?: (arg: ProductInfo[]) => void,
+  setQuantityTotal: (arg: number) => void,
+  quantityTotal: number,
 };
+
 
 function ProductCard({ name, id, available, shipping,
   price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
   const handleClick = () => {
+    setQuantityTotal(quantityTotal + 1);
     setQuantity(quantity + 1);
     const foundItenIndex = purchasedItens.findIndex((iten) => iten.title === name);
     if (foundItenIndex === -1) {

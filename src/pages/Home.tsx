@@ -8,10 +8,12 @@ import Categories from '../components/Categorias';
 
 type HomeProps = {
   purchasedItens: ProductInfo[]
-  setPurchased: (arg: ProductInfo[]) => void
+  setPurchased: (arg: ProductInfo[]) => void,
+  setQuantity: (arg: number) => void,
+  quantityTotal: number,
 };
 
-function Home({ purchasedItens, setPurchased }: HomeProps) {
+function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: HomeProps) {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<ProductInfo[]>([]);
   const [searched, setSearched] = useState(false);
@@ -64,6 +66,8 @@ function Home({ purchasedItens, setPurchased }: HomeProps) {
             price={ item.price }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchased }
+            setQuantityTotal={ setQuantity }
+            quantityTotal={ quantityTotal }
             key={ item.id }
             id={ item.id }
           />);

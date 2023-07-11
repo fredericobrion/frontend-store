@@ -11,9 +11,9 @@ function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
   const [firstLoading, setFirstLoading] = useState(true);
 
-  const productsQuantity = purchasedItens.reduce((soma, quantity) => {
-    return soma + quantity.quantity;
-  }, 0);
+  const localStorageTotalQuantity = JSON
+    .parse(localStorage.getItem('quantityTotal') || '0');
+  const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
   useEffect(() => {
     if (firstLoading) {
@@ -28,6 +28,10 @@ function App() {
     }
   }, [purchasedItens]);
 
+  useEffect(() => {
+    localStorage.setItem('quantityTotal', JSON.stringify(quantityTotal));
+  }, [quantityTotal]);
+
   return (
     <>
       <nav>
@@ -38,7 +42,7 @@ function App() {
           <p
             data-testid="shopping-cart-size"
           >
-            { productsQuantity }
+            { quantityTotal }
           </p>
         </Link>
       </nav>
@@ -48,11 +52,15 @@ function App() {
           element={ <Home
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
           /> }
         />
         <Route
           path="/shoppingcart"
           element={ <ShoppingCart
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
           /> }

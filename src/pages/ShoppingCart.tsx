@@ -5,10 +5,13 @@ import ShoppingCartItens from '../components/ShoppingCartItens';
 
 type ShoppingCardProps = {
   purchasedItens: ProductInfo[],
-  setPurchased: (arg: ProductInfo[]) => void
+  setPurchased: (arg: ProductInfo[]) => void,
+  setQuantity: (arg: number) => void,
+  quantityTotal: number,
 };
 
-function ShoppingCart({ purchasedItens, setPurchased }: ShoppingCardProps) {
+function ShoppingCart({ purchasedItens, setPurchased, setQuantity, quantityTotal }:
+ShoppingCardProps) {
   if (!purchasedItens.length) {
     return <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio.</p>;
   }
@@ -24,6 +27,8 @@ function ShoppingCart({ purchasedItens, setPurchased }: ShoppingCardProps) {
             image={ iten.thumbnail }
             setPurchased={ setPurchased }
             purchasedItens={ purchasedItens }
+            setQuantity={ setQuantity }
+            quantityTotal={ quantityTotal }
           />
         );
       })}

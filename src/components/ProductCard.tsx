@@ -8,14 +8,18 @@ type ProductCardProps = {
   price: number,
   image: string,
   purchasedItens?: ProductInfo[]
-  setPurchased?: (arg: ProductInfo[]) => void
+  setPurchased?: (arg: ProductInfo[]) => void,
+  setQuantityTotal: (arg: number) => void,
+  quantityTotal: number,
 };
 
 function ProductCard({ name, id,
-  price, image, purchasedItens = [], setPurchased = () => {} }: ProductCardProps) {
+  price, image, purchasedItens = [], setPurchased = () => {},
+  setQuantityTotal, quantityTotal }: ProductCardProps) {
   const [quantity, setQuantity] = useState(1);
 
   const handleClick = () => {
+    setQuantityTotal(quantityTotal + 1);
     setQuantity(quantity + 1);
     const foundItenIndex = purchasedItens.findIndex((iten) => iten.title === name);
     if (foundItenIndex === -1) {

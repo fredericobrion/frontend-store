@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
-import './App.css';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import { ProductInfo } from './types';
 import ProductsDetails from './pages/ProductsDetails';
 import PagePayments from './pages/PagePayments';
+import './App.css';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);

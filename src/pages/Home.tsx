@@ -59,10 +59,12 @@ function Home({ purchasedItens, setPurchased }: HomeProps) {
       <Categories searched={ setSearched } productsList={ setProductsList } />
       {searched && (productsList.length
         ? productsList.map((item) => {
+          console.log(item);
           return (<ProductCard
             name={ item.title }
             image={ item.thumbnail }
             price={ item.price }
+            shipping={ item.shipping }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchased }
             key={ item.id }

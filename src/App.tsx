@@ -11,11 +11,8 @@ function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
   const [firstLoading, setFirstLoading] = useState(true);
 
-  // const bagQuantity = () => {
-  //   purchasedItens.reduce((acc, ))
-  // };
-  // qweq
   useEffect(() => {
+    console.log(purchasedItens);
     if (firstLoading) {
       const localStorageItens = JSON
         .parse(localStorage.getItem('purchasedItens') || '{}');

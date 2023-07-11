@@ -31,12 +31,6 @@ const INITIAL_REVIEW = {
   rating: '0',
 };
 
-const INITIAL_REVIEW = {
-  email: '',
-  text: '',
-  rating: '0',
-};
-
 function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) {
   const paransPage = useParams();
   const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
@@ -63,7 +57,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
     };
     requestDataApi();
   }, []);
-  
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>
   | React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value, name } = e.target;

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
 import { Route, Routes, Link } from 'react-router-dom';
-import Home from './pages/Home';
-import ShoppingCart from './pages/ShoppingCart';
+import React, { useEffect, useState } from 'react';
 import { ProductInfo } from './types';
 import ProductsDetails from './pages/ProductsDetails';
+import ShoppingCart from './pages/ShoppingCart';
 import PagePayments from './pages/PagePayments';
+import Home from './pages/Home';
 import './App.css';
 
 function App() {

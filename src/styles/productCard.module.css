@@ -4,8 +4,9 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  height: 22.4rem;
-  width: 17.5rem;
+  height: 24rem;
+  max-width: 17.5rem;
+  padding: 1rem;
 }
 
 .container img {
@@ -43,14 +44,15 @@
   font-size: 1.25rem;
 }
 
+.shippingContainer {
+  height: 1.5rem;
+}
+
 .shipping {
   background-color: var(--blue);
-  bottom: 22rem;
   color: #ffffff;
   font-size: 0.625rem;
-  left: 14rem;
+  height: 1.5rem;
   padding: 0.2rem;
-  position: relative;
   text-align: center;
-  width: 3.1rem;
 }

@@ -47,25 +47,30 @@
 
 .main {
   display: flex;
+  width: 100%;
 }
 
 .main div {
-  margin: 10% auto 0 auto;
+  width: 100%;
   text-align: center;
 }
 
 h2 {
   color: var(--green);
   font-size: 1.875rem;
+  margin: 10% auto 0 auto;
 }
 
 h3 {
   color: #94979d;
   font-size: 1.25rem;
+  margin: 1rem auto 0 auto;
 }
 
 .productContainer {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 5rem;
   max-width: 100%;
+  padding: 2rem;
 }

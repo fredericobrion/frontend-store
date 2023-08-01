@@ -46,30 +46,30 @@ function ProductCard({ name, id, available, shipping, quantityTotal, setQuantity
   };
 
   return (
-    <>
-      <div data-testid="product" className={ styles.container }>
-        <Link to={ `/details/${id} ` } data-testid="product-detail-link">
-          <img src={ image } alt="Foto do produto" />
-          <h4>{name}</h4>
-          <p>
-            R$
-            <strong>{` ${price}`}</strong>
-          </p>
-        </Link>
-        <button
-          data-testid="product-add-to-cart"
-          onClick={ handleClick }
+    <div data-testid="product" className={ styles.container }>
+      <Link to={ `/details/${id} ` } data-testid="product-detail-link">
+        <img src={ image } alt="Foto do produto" />
+        <h4>{name}</h4>
+        <p>
+          R$
+          <strong>{` ${price}`}</strong>
+        </p>
+      </Link>
+      <div className={ styles.shippingContainer }>
+        {shipping && <span
+          className={ styles.shipping }
+          data-testid="free-shipping"
         >
-          Comprar
-        </button>
+          Frete grátis
+        </span>}
       </div>
-      {shipping && <span
-        className={ styles.shipping }
-        data-testid="free-shipping"
+      <button
+        data-testid="product-add-to-cart"
+        onClick={ handleClick }
       >
-        Frete grátis
-      </span>}
-    </>
+        Comprar
+      </button>
+    </div>
   );
 }
 

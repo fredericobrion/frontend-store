@@ -1,8 +1,11 @@
+/* eslint-disable react/jsx-max-depth */
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getProductById } from '../services/api';
 import { ProductInfo, Review } from '../types';
 import ProductReview from '../components/ProductReview';
+import Header from '../components/Header';
+import styles from '../styles/productDetails.module.css';
 
 type DetailsInfo = {
   title: string,
@@ -109,120 +112,126 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         available_quantity: details.available,
       }]);
     }
-    console.log(purchasedItens);
   };
 
   return (
-    <div>
-      <h4 data-testid="product-detail-name">{ details.title }</h4>
-      <img
-        data-testid="product-detail-image"
-        src={ details.thumbnail }
-        alt="product-img"
-      />
-      <p data-testid="product-detail-price">{ details.price }</p>
-      <p>{ details.condition }</p>
-      <form>
-        <input
-          value={ review.email }
-          data-testid="product-detail-email"
-          type="text"
-          name="email"
-          placeholder="Seu E-mail"
-          onChange={ handleChange }
-        />
-
-        <label htmlFor="1-rating">
-          <input
-            data-testid="1-rating"
-            id="1-rating"
-            name="rating"
-            type="radio"
-            value="1"
-            checked={ review.rating === '1' }
-            onChange={ handleClickReview }
+    <>
+      <Header />
+      <main className={ styles.main }>
+        <section>
+          <h4 data-testid="product-detail-name">{ details.title }</h4>
+          <img
+            data-testid="product-detail-image"
+            src={ details.thumbnail }
+            alt="product-img"
           />
-          1
-        </label>
-        <label htmlFor="2-rating">
-          <input
-            data-testid="2-rating"
-            id="2-rating"
-            name="rating"
-            type="radio"
-            value="2"
-            checked={ review.rating === '2' }
-            onChange={ handleClickReview }
-          />
-          2
-        </label>
-        <label htmlFor="3-rating">
-          <input
-            data-testid="3-rating"
-            id="3-rating"
-            name="rating"
-            type="radio"
-            value="3"
-            checked={ review.rating === '3' }
-            onChange={ handleClickReview }
-          />
-          3
-        </label>
-        <label htmlFor="4-rating">
-          <input
-            data-testid="4-rating"
-            id="4-rating"
-            name="rating"
-            type="radio"
-            value="4"
-            checked={ review.rating === '4' }
-            onChange={ handleClickReview }
-          />
-          4
-        </label>
-        <label htmlFor="5-rating">
-          <input
-            data-testid="5-rating"
-            id="5-rating"
-            name="rating"
-            type="radio"
-            value="5"
-            checked={ review.rating === '5' }
-            onChange={ handleClickReview }
-          />
-          5
-        </label>
+        </section>
+        <section>
+          <p data-testid="product-detail-price">{ details.price }</p>
+          <p>{ details.condition }</p>
+          <form className={ styles.form }>
+            <input
+              value={ review.email }
+              data-testid="product-detail-email"
+              type="text"
+              name="email"
+              placeholder="Seu E-mail"
+              onChange={ handleChange }
+            />
 
-        <textarea
-          data-testid="product-detail-evaluation"
-          name="text"
-          value={ review.text }
-          onChange={ handleChange }
-        />
+            <label htmlFor="1-rating">
+              <input
+                data-testid="1-rating"
+                id="1-rating"
+                name="rating"
+                type="radio"
+                value="1"
+                checked={ review.rating === '1' }
+                onChange={ handleClickReview }
+              />
+              1
+            </label>
+            <label htmlFor="2-rating">
+              <input
+                data-testid="2-rating"
+                id="2-rating"
+                name="rating"
+                type="radio"
+                value="2"
+                checked={ review.rating === '2' }
+                onChange={ handleClickReview }
+              />
+              2
+            </label>
+            <label htmlFor="3-rating">
+              <input
+                data-testid="3-rating"
+                id="3-rating"
+                name="rating"
+                type="radio"
+                value="3"
+                checked={ review.rating === '3' }
+                onChange={ handleClickReview }
+              />
+              3
+            </label>
+            <label htmlFor="4-rating">
+              <input
+                data-testid="4-rating"
+                id="4-rating"
+                name="rating"
+                type="radio"
+                value="4"
+                checked={ review.rating === '4' }
+                onChange={ handleClickReview }
+              />
+              4
+            </label>
+            <label htmlFor="5-rating">
+              <input
+                data-testid="5-rating"
+                id="5-rating"
+                name="rating"
+                type="radio"
+                value="5"
+                checked={ review.rating === '5' }
+                onChange={ handleClickReview }
+              />
+              5
+            </label>
 
-        <button
-          type="submit"
-          data-testid="submit-review-btn"
-          onClick={ handleSubmitReview }
-        >
-          Enviar avaliação
-        </button>
-      </form>
-      <button
-        onClick={ handleClick }
-        data-testid="product-detail-add-to-cart"
-      >
-        Adicionar ao carrinho
-      </button>
+            <textarea
+              data-testid="product-detail-evaluation"
+              name="text"
+              value={ review.text }
+              onChange={ handleChange }
+            />
 
-      { !isValid && <span data-testid="error-msg">Campos inválidos</span> }
+            <button
+              type="submit"
+              data-testid="submit-review-btn"
+              onClick={ handleSubmitReview }
+            >
+              Enviar avaliação
+            </button>
+          </form>
+          <button
+            onClick={ handleClick }
+            data-testid="product-detail-add-to-cart"
+          >
+            Adicionar ao carrinho
+          </button>
 
-      {reviewList.length > 0 && reviewList.map((reviewIten: Review, index: number) => {
-        return (
-          <ProductReview key={ index } reviewInfo={ reviewIten } />
-        );
-      })}
-    </div>
+          { !isValid && <span data-testid="error-msg">Campos inválidos</span> }
+
+          {reviewList.length > 0 && reviewList.map((reviewIten: Review, index: number) => {
+            return (
+              <ProductReview key={ index } reviewInfo={ reviewIten } />
+            );
+          })}
+        </section>
+      </main>
+    </>
   );
 }
 

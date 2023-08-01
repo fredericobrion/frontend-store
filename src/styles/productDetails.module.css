@@ -1,0 +1,21 @@
+.main {
+  display: flex;
+  justify-content: space-around;
+  padding: 4rem;
+}
+
+.main section {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  padding: 3rem;
+}
+
+.main section h4 {
+  margin-bottom: 2rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}

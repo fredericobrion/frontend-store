@@ -7,9 +7,10 @@ import styles from '../styles/categorias.module.css';
 type CategoriesProps = {
   searched: (arg: boolean) => void,
   productsList: (arg: ProductInfo[]) => void,
+  isLoadingProducts: (arg: boolean) => void,
 };
 
-function Categories({ searched, productsList }: CategoriesProps) {
+function Categories({ searched, productsList, isLoadingProducts }: CategoriesProps) {
   const [apiCategories, setApiCategories] = useState<CategoriesTypes[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -25,8 +26,8 @@ function Categories({ searched, productsList }: CategoriesProps) {
 
   const handleClick = async (itemId: string) => {
     searched(true);
+    isLoadingProducts(true);
     const itensByCategory = await getProductByCategory(itemId);
-    console.log(itensByCategory);
     const filteredInfoItens = itensByCategory.results
       .map(({ title, price, thumbnail, id, available_quantity, shipping }
       : ProductInfo) => {
@@ -40,6 +41,7 @@ function Categories({ searched, productsList }: CategoriesProps) {
         };
       });
     productsList(filteredInfoItens);
+    isLoadingProducts(false);
   };
 
   if (isLoading) return <Loading />;

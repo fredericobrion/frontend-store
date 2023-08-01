@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ProductInfo } from '../types';
+import styles from '../styles/productCard.module.css';
 
 type ProductCardProps = {
   id: string,
@@ -45,20 +46,30 @@ function ProductCard({ name, id, available, shipping, quantityTotal, setQuantity
   };
 
   return (
-    <div data-testid="product">
-      <Link to={ `/details/${id} ` } data-testid="product-detail-link">
-        <h4>{name}</h4>
-        <img src={ image } alt="Foto do produto" />
-        <p>{price}</p>
-      </Link>
-      {shipping && <span data-testid="free-shipping">Frete grátis</span>}
-      <button
-        data-testid="product-add-to-cart"
-        onClick={ handleClick }
+    <>
+      <div data-testid="product" className={ styles.container }>
+        <Link to={ `/details/${id} ` } data-testid="product-detail-link">
+          <img src={ image } alt="Foto do produto" />
+          <h4>{name}</h4>
+          <p>
+            R$
+            <strong>{` ${price}`}</strong>
+          </p>
+        </Link>
+        <button
+          data-testid="product-add-to-cart"
+          onClick={ handleClick }
+        >
+          Comprar
+        </button>
+      </div>
+      {shipping && <span
+        className={ styles.shipping }
+        data-testid="free-shipping"
       >
-        Comprar
-      </button>
-    </div>
+        Frete grátis
+      </span>}
+    </>
   );
 }
 

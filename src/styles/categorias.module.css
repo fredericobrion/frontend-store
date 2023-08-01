@@ -1,0 +1,28 @@
+.aside {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 1.7rem;
+  padding: 2rem 2rem;
+  overflow-y: auto;
+  width: 19.375rem;
+}
+
+.aside div {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.aside div button {
+  background-color: #ffffff;
+  border: none;
+  color: var(--gray);
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.aside div button:hover {  
+  color: var(--blue);
+  font-weight: bold;
+}

@@ -1,0 +1,29 @@
+.shoppingCartButton {
+  height: 0;
+  left: 95%;
+  margin: 0;
+  max-width: 5%;
+  padding: 0;
+  position: relative;
+  top: 55px;
+}
+
+.shoppingCartButton a {
+  text-decoration: none;
+}
+
+.shoppingCartButton p {
+  background-color: var(--green);
+  border-radius: 100%;
+  bottom: 2.8rem;
+  color: #ffffff;
+  height: 1.45rem;
+  left: 1.5rem;
+  position: relative;
+  text-align: center;
+  width: 1.45rem;
+}
+
+/* .link {
+  text-decoration: none;
+} */

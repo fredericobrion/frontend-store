@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCategories, getProductByCategory } from '../services/api';
 import { CategoriesTypes, ProductInfo } from '../types';
 import Loading from './Loading';
+import styles from '../styles/categorias.module.css';
 
 type CategoriesProps = {
   searched: (arg: boolean) => void,
@@ -44,8 +45,9 @@ function Categories({ searched, productsList }: CategoriesProps) {
   if (isLoading) return <Loading />;
 
   return (
-    <aside>
-      <h1>Categorias</h1>
+    <aside className={ styles.aside }>
+      <h2>Categorias</h2>
+      <hr className={ styles.line } />
       <div>
         { apiCategories.map((item) => (
           <button

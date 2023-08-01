@@ -6,6 +6,8 @@ import ShoppingCart from './pages/ShoppingCart';
 import PagePayments from './pages/PagePayments';
 import Home from './pages/Home';
 import './App.css';
+import styles from './styles/shoppingCartButton.module.css';
+import shoppingCartIcon from './images/shoppingCart.svg';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
@@ -35,11 +37,13 @@ function App() {
 
   return (
     <>
-      <nav>
+      <nav className={ styles.shoppingCartButton }>
         <Link
+          className={ styles.link }
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
+          <img src={ shoppingCartIcon } alt="" />
           <p
             data-testid="shopping-cart-size"
           >

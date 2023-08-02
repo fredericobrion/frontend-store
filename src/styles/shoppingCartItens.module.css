@@ -1,0 +1,46 @@
+.container {
+  align-items: center;
+  border-top: 1px solid black;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto auto 35% auto auto;
+  padding: 1.5rem 1rem;
+}
+
+.container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.container button:hover {
+  scale: 1.1;
+}
+
+.container h4, .container p {
+  color: rgba(68, 73, 85, 1);
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.quantity {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.quantity button {
+  color: rgba(176, 179, 187, 1);
+  font-size: 1.5rem;
+}
+
+.quantity p {
+  background-color: rgba(176, 179, 187, 1);
+  border-radius: 100%;
+  color: rgba(255, 255, 255, 1);
+  font-size: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+}

@@ -2,6 +2,12 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { ProductInfo, InputVerification } from '../types';
 import CheckoutItemCard from '../components/CheckoutItemCard';
+import Header from '../components/Header';
+import styles from '../styles/pagePayment.module.css';
+import boleto from '../images/🦆 icon _barcode_.svg';
+import visa from '../images/🦆 icon _Visa_.svg';
+import masterCard from '../images/🦆 icon _MasterCard_.svg';
+import elo from '../images/🦆 icon _elo_.svg';
 
 type PaymentProps = {
   purchasedItens: ProductInfo[],
@@ -84,8 +90,10 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
   };
 
   return (
-    <div>
-      <div>
+    <>
+      <Header />
+      <section className={ styles.productContainer }>
+        <h3>Revise seus produtos</h3>
         {purchasedItens.map((item: ProductInfo) => {
           const { id, title, thumbnail, price, quantity } = item;
           return (
@@ -98,82 +106,74 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
             />
           );
         })}
-      </div>
+      </section>
 
-      <form>
-        <label htmlFor="userName">
-          Nome
-          <input
-            value={ userName }
-            onChange={ handleChange }
-            data-testid="checkout-fullname"
-            required
-            name="userName"
-            type="text"
-          />
-        </label>
+      <form className={ styles.form }>
+        <h5>Informações do comprador</h5>
+        <input
+          placeholder="Nome Completo"
+          value={ userName }
+          onChange={ handleChange }
+          data-testid="checkout-fullname"
+          required
+          name="userName"
+          type="text"
+        />
 
-        <label htmlFor="email">
-          Email
-          <input
-            data-testid="checkout-email"
-            required
-            name="email"
-            type="email"
-            value={ email }
-            onChange={ handleChange }
-          />
-        </label>
+        <input
+          placeholder="CPF"
+          value={ cpf }
+          required
+          name="cpf"
+          type="text"
+          data-testid="checkout-cpf"
+          onChange={ handleChange }
+        />
 
-        <label htmlFor="cpf">
-          CPF
-          <input
-            value={ cpf }
-            required
-            name="cpf"
-            type="text"
-            data-testid="checkout-cpf"
-            onChange={ handleChange }
-          />
-        </label>
+        <input
+          placeholder="Email"
+          data-testid="checkout-email"
+          required
+          name="email"
+          type="email"
+          value={ email }
+          onChange={ handleChange }
+        />
 
-        <label htmlFor="phone">
-          Numero de Telefone
-          <input
-            value={ phone }
-            required
-            name="phone"
-            type="text"
-            data-testid="checkout-phone"
-            onChange={ handleChange }
-          />
-        </label>
+        <input
+          placeholder="Telefone"
+          value={ phone }
+          required
+          name="phone"
+          type="text"
+          data-testid="checkout-phone"
+          onChange={ handleChange }
+        />
 
-        <label htmlFor="cep">
-          CEP
-          <input
-            value={ cep }
-            required
-            name="cep"
-            type="text"
-            data-testid="checkout-cep"
-            onChange={ handleChange }
-          />
-        </label>
+        <input
+          placeholder="CEP"
+          value={ cep }
+          required
+          name="cep"
+          type="text"
+          data-testid="checkout-cep"
+          onChange={ handleChange }
+        />
 
-        <label htmlFor="address">
-          Endereço
-          <input
-            value={ address }
-            required
-            name="address"
-            type="text"
-            data-testid="checkout-address"
-            onChange={ handleChange }
-          />
-        </label>
-        <div>
+        <input
+          placeholder="Endereço"
+          value={ address }
+          required
+          name="address"
+          type="text"
+          data-testid="checkout-address"
+          onChange={ handleChange }
+        />
 
+        <h5>Método de pagamento</h5>
+        <div className={ styles.paymentMethod }>
+          <h6>Boleto</h6>
+          <h6>Cartão de Crédito</h6>
           <label htmlFor="ticket">
             <input
               checked={ userInfo.payment === 'ticket' }
@@ -183,7 +183,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
               name="payment-method"
               type="radio"
             />
-            Boleto
+            <img src={ boleto } alt="" />
           </label>
 
           <label htmlFor="visa-card">
@@ -195,7 +195,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
               type="radio"
               data-testid="visa-payment"
             />
-            Visa
+            <img src={ visa } alt="Visa Card" />
           </label>
 
           <label htmlFor="masterCard-card">
@@ -207,7 +207,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
               name="payment-method"
               type="radio"
             />
-            MasterCard
+            <img src={ masterCard } alt="Mastercard Card" />
           </label>
 
           <label htmlFor="eloCard">
@@ -219,7 +219,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
               name="payment-method"
               type="radio"
             />
-            Elo
+            <img src={ elo } alt="Elo Card" />
           </label>
 
         </div>
@@ -233,7 +233,7 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
       </form>
 
       {!checkedStatus && <span data-testid="error-msg">Campos inválidos</span>}
-    </div>
+    </>
   );
 }
 

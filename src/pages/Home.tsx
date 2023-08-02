@@ -1,6 +1,6 @@
 // Requisito 6 feito por Andrew e Frederico
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getProductByQuery } from '../services/api';
 import { ProductInfo } from '../types';
 import ProductCard from '../components/ProductCard';
@@ -95,12 +95,13 @@ function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: Home
       </header>
       <main className={ styles.main }>
         <Categories
+          setOrder={ setOrder }
           searched={ setSearched }
           productsList={ setProductsList }
           isLoadingProducts={ setIsLoading }
         />
         <section>
-          <select name="priceOrder" onChange={ handleSelect }>
+          <select value={ order } name="priceOrder" onChange={ handleSelect }>
             <option value="none">Ordernar por preço</option>
             <option value="lowest">Menor para maior</option>
             <option value="biggest">Maior para menor</option>

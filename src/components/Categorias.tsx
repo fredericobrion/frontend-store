@@ -8,9 +8,15 @@ type CategoriesProps = {
   searched: (arg: boolean) => void,
   productsList: (arg: ProductInfo[]) => void,
   isLoadingProducts: (arg: boolean) => void,
+  setOrder: (arg: string) => void,
 };
 
-function Categories({ searched, productsList, isLoadingProducts }: CategoriesProps) {
+function Categories({
+  searched,
+  productsList,
+  isLoadingProducts,
+  setOrder }
+: CategoriesProps) {
   const [apiCategories, setApiCategories] = useState<CategoriesTypes[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -25,6 +31,7 @@ function Categories({ searched, productsList, isLoadingProducts }: CategoriesPro
   }, []);
 
   const handleClick = async (itemId: string) => {
+    setOrder('none');
     searched(true);
     isLoadingProducts(true);
     const itensByCategory = await getProductByCategory(itemId);

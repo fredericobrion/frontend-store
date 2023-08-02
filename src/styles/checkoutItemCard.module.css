@@ -1,0 +1,25 @@
+.container {
+  align-items: center;
+  border-top: 1px solid black;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto 40% auto auto;
+  padding: 1.5rem 1rem;
+  width: 100%;
+}
+
+.container img {
+  margin: auto;
+}
+
+.container h5 {
+  color: rgba(68, 73, 85, 1);
+  font-size: 1rem;
+  text-align: center;
+}
+
+.container p {
+  color: rgba(68, 73, 85, 1);
+  font-size: 1rem;
+  text-align: center;
+}

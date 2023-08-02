@@ -18,7 +18,9 @@ type DetailsInfo = {
 
 type ProductDetailsProps = {
   purchasedItens: ProductInfo[],
-  setPurchased: (arg: ProductInfo[]) => void
+  setPurchased: (arg: ProductInfo[]) => void,
+  setQuantity: (arg: number) => void,
+  quantityTotal: number,
 };
 
 const INITIAL_OBJECT = {
@@ -35,18 +37,19 @@ const INITIAL_REVIEW = {
   rating: '0',
 };
 
-function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) {
+function ProductsDetails({ purchasedItens,
+  setPurchased,
+  setQuantity,
+  quantityTotal }: ProductDetailsProps) {
   const paransPage = useParams();
   const [details, setDetails] = useState<DetailsInfo>(INITIAL_OBJECT);
   const { id: productId = '' } = paransPage;
 
   const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[{}, {}]');
-  const initialListReview = localStorageItens[0].email === undefined
-    ? [] : localStorageItens;
 
   const [isValid, setIsValid] = useState(true);
   const [review, setReview] = useState(INITIAL_REVIEW);
-  const [reviewList, setReviewList] = useState<Review[]>(initialListReview);
+  const [reviewList, setReviewList] = useState<Review[]>(localStorageItens);
 
   useEffect(() => {
     const requestDataApi = async () => {
@@ -94,6 +97,10 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
         review,
       ]);
       setReview(INITIAL_REVIEW);
+      localStorage.setItem(productId, JSON.stringify([
+        ...reviewList,
+        review,
+      ]));
       setIsValid(true);
     } else {
       setIsValid(false);
@@ -102,6 +109,7 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
 
   const handleClick = () => {
     const foundIten = purchasedItens.some((iten) => iten.title === details.title);
+    setQuantity(quantityTotal + 1);
     if (foundIten) {
       const index = purchasedItens.findIndex((iten) => iten.title === details.title);
       purchasedItens[index].quantity += 1;

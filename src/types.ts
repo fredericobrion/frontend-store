@@ -5,9 +5,9 @@ export type ProductInfo = {
   id?: string,
   quantity: number,
   available_quantity: number,
-  shipping: {
+  shipping?: {
     free_shipping: boolean,
-  } | boolean,
+  } /* | boolean */,
 };
 
 export type CategoriesTypes = {

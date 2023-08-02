@@ -45,8 +45,12 @@ function ProductCard({ name, id, available, shipping, quantityTotal, setQuantity
     }
   };
 
+  const isPurchased = purchasedItens.some((iten) => iten.title === name);
+  const classContainer = isPurchased
+    ? `${styles.container} ${styles.purchased}` : styles.container;
+
   return (
-    <div data-testid="product" className={ styles.container }>
+    <div data-testid="product" className={ classContainer }>
       <Link to={ `/details/${id} ` } data-testid="product-detail-link">
         <img src={ image } alt="Foto do produto" />
         <h4>{name}</h4>

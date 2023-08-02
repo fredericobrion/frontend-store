@@ -10,6 +10,10 @@
   padding: 1rem;
 }
 
+.purchased {
+  border: 2px solid var(--green);
+}
+
 .container img {
   height: 13rem;
   padding: 0 3rem 1rem 3rem;

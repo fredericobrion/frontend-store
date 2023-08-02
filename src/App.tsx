@@ -18,7 +18,6 @@ function App() {
   const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
   useEffect(() => {
-    console.log(purchasedItens);
     if (firstLoading) {
       const localStorageItens = JSON
         .parse(localStorage.getItem('purchasedItens') || '{}');
@@ -82,6 +81,8 @@ function App() {
           element={ <ProductsDetails
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
           /> }
         />
       </Routes>

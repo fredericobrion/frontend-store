@@ -6,6 +6,7 @@ import { ProductInfo, Review } from '../types';
 import ProductReview from '../components/ProductReview';
 import Header from '../components/Header';
 import styles from '../styles/productDetails.module.css';
+import LabelAndRadioInput from '../components/LabelAndRadioInput';
 
 type DetailsInfo = {
   title: string,
@@ -40,10 +41,12 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
   const { id: productId = '' } = paransPage;
 
   const localStorageItens = JSON.parse(localStorage.getItem(productId) || '[{}, {}]');
+  const initialListReview = localStorageItens[0].email === undefined
+    ? [] : localStorageItens;
 
   const [isValid, setIsValid] = useState(true);
   const [review, setReview] = useState(INITIAL_REVIEW);
-  const [reviewList, setReviewList] = useState<Review[]>(localStorageItens);
+  const [reviewList, setReviewList] = useState<Review[]>(initialListReview);
 
   useEffect(() => {
     const requestDataApi = async () => {
@@ -125,21 +128,39 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
             src={ details.thumbnail }
             alt="product-img"
           />
-        </section>
-        <section>
-          <p data-testid="product-detail-price">{ details.price }</p>
-          <p>{ details.condition }</p>
-          <form className={ styles.form }>
-            <input
-              value={ review.email }
-              data-testid="product-detail-email"
-              type="text"
-              name="email"
-              placeholder="Seu E-mail"
-              onChange={ handleChange }
-            />
+          <p>
+            R$
+            <span data-testid="product-detail-price">{ ` ${details.price}` }</span>
 
-            <label htmlFor="1-rating">
+          </p>
+          <p>{ `Condiçaõ: ${details.condition}` }</p>
+          <button
+            onClick={ handleClick }
+            data-testid="product-detail-add-to-cart"
+          >
+            Adicionar ao carrinho
+          </button>
+        </section>
+        <form className={ styles.form }>
+          <h4>Avaliações</h4>
+          <input
+            value={ review.email }
+            data-testid="product-detail-email"
+            type="text"
+            name="email"
+            placeholder="Email"
+            onChange={ handleChange }
+          />
+
+          <div className={ styles.ratingContainer }>
+            <h5>Sua Nota</h5>
+            <LabelAndRadioInput
+              id="1-rating"
+              value="1"
+              checked={ review.rating === '1' }
+              handleClickReview={ handleClickReview }
+            />
+            {/* <label htmlFor="1-rating">
               <input
                 data-testid="1-rating"
                 id="1-rating"
@@ -150,86 +171,64 @@ function ProductsDetails({ purchasedItens, setPurchased }: ProductDetailsProps) 
                 onChange={ handleClickReview }
               />
               1
-            </label>
-            <label htmlFor="2-rating">
-              <input
-                data-testid="2-rating"
-                id="2-rating"
-                name="rating"
-                type="radio"
-                value="2"
-                checked={ review.rating === '2' }
-                onChange={ handleClickReview }
-              />
-              2
-            </label>
-            <label htmlFor="3-rating">
-              <input
-                data-testid="3-rating"
-                id="3-rating"
-                name="rating"
-                type="radio"
-                value="3"
-                checked={ review.rating === '3' }
-                onChange={ handleClickReview }
-              />
-              3
-            </label>
-            <label htmlFor="4-rating">
-              <input
-                data-testid="4-rating"
-                id="4-rating"
-                name="rating"
-                type="radio"
-                value="4"
-                checked={ review.rating === '4' }
-                onChange={ handleClickReview }
-              />
-              4
-            </label>
-            <label htmlFor="5-rating">
-              <input
-                data-testid="5-rating"
-                id="5-rating"
-                name="rating"
-                type="radio"
-                value="5"
-                checked={ review.rating === '5' }
-                onChange={ handleClickReview }
-              />
-              5
-            </label>
+            </label> */}
 
-            <textarea
-              data-testid="product-detail-evaluation"
-              name="text"
-              value={ review.text }
-              onChange={ handleChange }
+            <LabelAndRadioInput
+              id="2-rating"
+              value="2"
+              checked={ review.rating === '2' }
+              handleClickReview={ handleClickReview }
             />
 
-            <button
-              type="submit"
-              data-testid="submit-review-btn"
-              onClick={ handleSubmitReview }
-            >
-              Enviar avaliação
-            </button>
-          </form>
-          <button
-            onClick={ handleClick }
-            data-testid="product-detail-add-to-cart"
-          >
-            Adicionar ao carrinho
-          </button>
+            <LabelAndRadioInput
+              id="3-rating"
+              value="3"
+              checked={ review.rating === '3' }
+              handleClickReview={ handleClickReview }
+            />
+
+            <LabelAndRadioInput
+              id="4-rating"
+              value="4"
+              checked={ review.rating === '4' }
+              handleClickReview={ handleClickReview }
+            />
+
+            <LabelAndRadioInput
+              id="5-rating"
+              value="5"
+              checked={ review.rating === '5' }
+              handleClickReview={ handleClickReview }
+            />
+          </div>
+
+          <textarea
+            cols={ 30 }
+            rows={ 10 }
+            placeholder="Mensagem (Opcional)"
+            data-testid="product-detail-evaluation"
+            name="text"
+            value={ review.text }
+            onChange={ handleChange }
+          />
 
           { !isValid && <span data-testid="error-msg">Campos inválidos</span> }
 
-          {reviewList.length > 0 && reviewList.map((reviewIten: Review, index: number) => {
-            return (
-              <ProductReview key={ index } reviewInfo={ reviewIten } />
-            );
-          })}
-        </section>
+          <button
+            type="submit"
+            data-testid="submit-review-btn"
+            onClick={ handleSubmitReview }
+          >
+            Avaliar
+          </button>
+        </form>
+
+        {reviewList.length > 0
+        && reviewList.map((reviewIten: Review, index: number) => {
+          return (
+            <ProductReview key={ index } reviewInfo={ reviewIten } />
+          );
+        })}
       </main>
     </>
   );

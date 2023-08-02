@@ -101,44 +101,50 @@ function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: Home
           isLoadingProducts={ setIsLoading }
         />
         <section>
-          <select value={ order } name="priceOrder" onChange={ handleSelect }>
-            <option value="none">Ordernar por preço</option>
-            <option value="lowest">Menor para maior</option>
-            <option value="biggest">Maior para menor</option>
-          </select>
-          {!searched && <div>
-            <h2>VOCÊ AINDA NÃO REALIZOU UMA BUSCA</h2>
-            <h3
-              data-testid="home-initial-message"
-            >
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </h3>
-          </div>}
+          {searched
+          && !isLoading
+          && (
+            <select value={ order } name="priceOrder" onChange={ handleSelect }>
+              <option value="none">Ordernar por preço</option>
+              <option value="lowest">Menor para maior</option>
+              <option value="biggest">Maior para menor</option>
+            </select>)}
+          {!searched && (
+            <div>
+              <h2>VOCÊ AINDA NÃO REALIZOU UMA BUSCA</h2>
+              <h3
+                data-testid="home-initial-message"
+              >
+                Digite algum termo de pesquisa ou escolha uma categoria.
+              </h3>
+            </div>)}
           {isLoading && <h2>CARREGANDO...</h2>}
           {searched && !isLoading && (productsList.length
-            ? <div className={ styles.productContainer }>
-              {
-                list.map((item) => {
-                  return (<ProductCard
-                    name={ item.title }
-                    image={ item.thumbnail }
-                    price={ item.price }
-                    shipping={ item.shipping }
-                    purchasedItens={ purchasedItens }
-                    setPurchased={ setPurchased }
-                    setQuantityTotal={ setQuantity }
-                    quantityTotal={ quantityTotal }
-                    key={ item.id }
-                    id={ item.id }
-                    available={ item.available_quantity }
-                  />);
-                })
-                }
-            </div>
-            : <div>
-              <h2>Nenhum produto foi encontrado</h2>
-              <h3>Digite outro termo de pesquisa ou escolha uma categoria</h3>
-            </div>
+            ? (
+              <div className={ styles.productContainer }>
+                {
+                  list.map((item) => {
+                    return (<ProductCard
+                      name={ item.title }
+                      image={ item.thumbnail }
+                      price={ item.price }
+                      shipping={ item.shipping }
+                      purchasedItens={ purchasedItens }
+                      setPurchased={ setPurchased }
+                      setQuantityTotal={ setQuantity }
+                      quantityTotal={ quantityTotal }
+                      key={ item.id }
+                      id={ item.id }
+                      available={ item.available_quantity }
+                    />);
+                  })
+                  }
+              </div>)
+            : (
+              <div>
+                <h2>Nenhum produto foi encontrado</h2>
+                <h3>Digite outro termo de pesquisa ou escolha uma categoria</h3>
+              </div>)
           )}
         </section>
       </main>

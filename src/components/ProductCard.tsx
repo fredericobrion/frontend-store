@@ -55,14 +55,13 @@ function ProductCard({ name, id, available, shipping, quantityTotal, setQuantity
           <strong>{` ${price}`}</strong>
         </p>
       </Link>
-      <div className={ styles.shippingContainer }>
-        {shipping && <span
+      {shipping && (
+        <span
           className={ styles.shipping }
           data-testid="free-shipping"
         >
           Frete grátis
-        </span>}
-      </div>
+        </span>)}
       <button
         data-testid="product-add-to-cart"
         onClick={ handleClick }

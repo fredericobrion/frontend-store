@@ -1,0 +1,33 @@
+.container {
+  background-color: #ffffff;
+  display: grid;
+  grid-template-columns: 30% auto;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin: 5px auto 0 auto;
+  padding: 2rem;
+  width: 90%;
+}
+
+.container p {
+  font-size: 1.25rem;
+}
+
+.ratingContainer {
+  align-items: center;
+  display: flex;  
+}
+
+.ratingContainer span {
+  font-size: 1.25rem;
+  margin-right: 1rem;
+}
+
+.ratingContainer img {
+  height: 1.4rem;
+}
+
+.container span {
+  color: rgba(148, 151, 157, 1);
+  margin-top: 0.5rem;
+}

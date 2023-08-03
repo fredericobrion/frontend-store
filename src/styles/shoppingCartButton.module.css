@@ -1,4 +1,5 @@
 @keyframes increaseScale {
+
   from {
     transform: scale(1);
   }
@@ -9,6 +10,7 @@
 }
 
 @keyframes decreaseScale {
+
   from {
     transform: scale(1);
   }
@@ -19,10 +21,9 @@
 }
 
 .shoppingCartButton {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
   height: 0;
   left: 85%;
   margin: 0;
@@ -33,13 +34,13 @@
 }
 
 .increaseScale {
-  animation-name: increaseScale;
   animation-duration: 400ms;
+  animation-name: increaseScale;
 }
 
 .decreaseScale {
-  animation-name: decreaseScale;
   animation-duration: 400ms;
+  animation-name: decreaseScale;
 }
 
 .shoppingCartButton a {
@@ -50,7 +51,7 @@
   background-color: var(--green);
   border-radius: 100%;
   bottom: 2.8rem;
-  color: #ffffff;
+  color: white;
   height: 1.45rem;
   left: 1.5rem;
   position: relative;
@@ -60,12 +61,12 @@
 
 .shoppingCartButton button {
   background-color: var(--green);
-  border: 1px solid #ffffff;
+  border: 1px solid white;
   border-radius: 10px;
-  color: #ffffff;
+  color: white;
   cursor: pointer;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 700;
   padding: 0.5rem;
 }
 

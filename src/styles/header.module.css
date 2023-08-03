@@ -7,8 +7,8 @@
 }
 
 .header a {
-  display: flex;
   color: var(--green);
+  display: flex;
   font-size: 1rem;
   font-weight: 700;
   gap: 1rem;
@@ -17,11 +17,11 @@
 
 .header h1 {
   align-items: center;
-  color: #ffffff;
+  color: white;
   display: flex;
   flex-direction: column;
   font-size: 2.2rem;
-  font-weight: bold;
+  font-weight: 700;
   margin: 0 40% 0 0;
 }
 

@@ -1,7 +1,11 @@
 :root {
+
   --blue: #003be5;
+
   --gray: #444955;
+
   --green: #2fc18c;
+
   --light-gray: #b0b3bb;
 }
 
@@ -10,7 +14,7 @@
 }
 
 body {
-  background-color: #F5F5F5;
+  background-color: whitesmoke;
 }
 
 .App {

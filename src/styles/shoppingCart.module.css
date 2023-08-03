@@ -4,7 +4,7 @@
 }
 
 .productContainer {
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -14,10 +14,10 @@
 
 .totalContainer {
   align-items: center;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
-  gap: 1rem;
   flex-direction: column;
+  gap: 1rem;
   margin: 3rem;
   padding: 2rem;
 }
@@ -30,7 +30,7 @@
 
 .totalContainer a {
   background-color: var(--green);
-  color: #ffffff;
+  color: white;
   font-size: 1rem;
   padding: 0.6rem 2.5rem;
   text-decoration: none;

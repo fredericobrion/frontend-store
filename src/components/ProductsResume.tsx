@@ -96,7 +96,7 @@ function ProductsResume({
       })}
       <h5 className={ styles.totalValue }>
         Valor total da compra:
-        <span>{ ` R$ ${total}` }</span>
+        <span>{ ` R$ ${total.toFixed(2)}` }</span>
       </h5>
       <button
         className={ styles.finish }

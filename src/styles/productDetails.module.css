@@ -4,13 +4,16 @@
   padding: 4rem;
 }
 
+.form h4 {
+  font-size: 1.3rem;
+}
+
 .main section {
   align-items: center;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  grid-column-start: 1;
-  grid-column-end: 2;
+  grid-column: 1 / 2;
   height: 35vh;
   justify-content: space-around;
   margin: 0 auto;
@@ -30,13 +33,12 @@
   width: auto;
 }
 
-.form {  
+.form {
   align-items: center;
-  background-color: #ffffff;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  grid-column-start: 2;
-  grid-column-end: 3;
+  grid-column: 2 / 3;
   height: 35vh;
   justify-content: space-around;
   margin: 0 auto;
@@ -44,11 +46,7 @@
   width: 80%;
 }
 
-.form h4 {
-  font-size: 1.3rem;
-}
-
-input:nth-child(2) {
+input:nth-child( 2 ) {
   border: 1px solid rgba(148, 151, 157, 1);
   height: 2rem;
   width: 20rem;
@@ -62,8 +60,8 @@ input:nth-child(2) {
 }
 
 .ratingContainer h5 {
-  font-size: 0.9rem;
   display: inline;
+  font-size: 0.9rem;
   text-align: center;
   width: 100%;
 }
@@ -71,7 +69,7 @@ input:nth-child(2) {
 .form button {
   background-color: var(--green);
   border: none;
-  color: rgba(255, 255, 255, 1);
+  color: white;
   cursor: pointer;
   height: 2rem;
   transition: 200ms;
@@ -81,3 +79,4 @@ input:nth-child(2) {
 .form button:hover {
   scale: 1.1;
 }
+

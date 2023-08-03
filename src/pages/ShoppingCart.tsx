@@ -38,7 +38,7 @@ ShoppingCardProps) {
           {purchasedItens.map((iten: ProductInfo, index) => {
             return (
               <ShoppingCartItens
-                key={ index }
+                key={ iten.thumbnail }
                 name={ iten.title }
                 price={ iten.price }
                 quantity={ iten.quantity }

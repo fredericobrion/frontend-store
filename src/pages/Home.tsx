@@ -7,15 +7,25 @@ import ProductCard from '../components/ProductCard';
 import Categories from '../components/Categorias';
 import styles from '../styles/home.module.css';
 import searchLogo from '../images/search.svg';
+import ProductsResume from '../components/ProductsResume';
 
 type HomeProps = {
   purchasedItens: ProductInfo[]
   setPurchased: (arg: ProductInfo[]) => void,
   setQuantity: (arg: number) => void,
   quantityTotal: number,
+  showResume: boolean,
+  setShowResume: (arg: boolean) => void,
 };
 
-function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: HomeProps) {
+function Home({
+  purchasedItens,
+  setPurchased,
+  setQuantity,
+  quantityTotal,
+  showResume,
+  setShowResume,
+}: HomeProps) {
   const [search, setSearch] = useState('');
   const [productsList, setProductsList] = useState<ProductInfo[]>([]);
   const [searched, setSearched] = useState(false);
@@ -93,6 +103,14 @@ function Home({ purchasedItens, setPurchased, setQuantity, quantityTotal }: Home
           </span>
         </h1>
       </header>
+      {/* <ProductsResume
+        showResume={ showResume }
+        setShowResume={ setShowResume }
+        purchasedItens={ purchasedItens }
+        setPurchased={ setPurchased }
+        quantityTotal={ quantityTotal }
+        setQuantity={ setQuantity }
+      /> */}
       <main className={ styles.main }>
         <Categories
           setOrder={ setOrder }

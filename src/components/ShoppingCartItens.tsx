@@ -14,11 +14,17 @@ type ShoppingCartItensProps = {
 };
 
 function ShoppingCartItens({
-  name, price, image, quantity = 0, purchasedItens, setPurchased,
-  setQuantity, quantityTotal }: ShoppingCartItensProps) {
+  name,
+  price,
+  image,
+  quantity = 0,
+  purchasedItens,
+  setPurchased,
+  setQuantity,
+  quantityTotal }
+: ShoppingCartItensProps) {
   const handleDelete = (itemName: string) => {
     const deletedItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
-    console.log(purchasedItens[deletedItemIndex].quantity);
     setQuantity(quantityTotal - purchasedItens[deletedItemIndex].quantity);
     purchasedItens.splice(deletedItemIndex, 1);
     setPurchased([...purchasedItens]);
@@ -29,9 +35,9 @@ function ShoppingCartItens({
     const alterItem = purchasedItens[alterItemIndex];
     if (alterItem.quantity < alterItem.available_quantity) {
       alterItem.quantity = quantity + 1;
+      setPurchased([...purchasedItens]);
+      setQuantity(quantityTotal + 1);
     }
-    setPurchased([...purchasedItens]);
-    setQuantity(quantityTotal + 1);
   };
 
   const handleDecrease = (itemName: string) => {
@@ -39,8 +45,8 @@ function ShoppingCartItens({
     if (quantity > 1) {
       purchasedItens[alterItemIndex].quantity = quantity - 1;
       setPurchased([...purchasedItens]);
+      setQuantity(quantityTotal - 1);
     }
-    setQuantity(quantityTotal - 1);
   };
 
   return (

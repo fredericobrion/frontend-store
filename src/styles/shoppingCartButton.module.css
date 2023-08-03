@@ -19,13 +19,17 @@
 }
 
 .shoppingCartButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   height: 0;
-  left: 95%;
+  left: 85%;
   margin: 0;
-  max-width: 5%;
+  max-width: 10%;
   padding: 0;
   position: relative;
-  top: 55px;
+  top: 40px;
 }
 
 .increaseScale {
@@ -52,4 +56,19 @@
   position: relative;
   text-align: center;
   width: 1.45rem;
+}
+
+.shoppingCartButton button {
+  background-color: var(--green);
+  border: 1px solid #ffffff;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  padding: 0.5rem;
+}
+
+.shoppingCartButton button:hover {
+  scale: 1.1;
 }

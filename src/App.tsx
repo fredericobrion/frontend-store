@@ -1,4 +1,4 @@
-import { Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link, useLocation } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { ProductInfo } from './types';
 import ProductsDetails from './pages/ProductsDetails';
@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import './App.css';
 import styles from './styles/shoppingCartButton.module.css';
 import shoppingCartIcon from './images/shoppingCart.svg';
+import ProductsResume from './components/ProductsResume';
 
 function App() {
   const [purchasedItens, setPurchasedItens] = useState<ProductInfo[]>([]);
@@ -18,8 +19,12 @@ function App() {
   const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
   const [oldQuantity, setOldQuantity] = useState(quantityTotal);
-  const [shoppigCartButtonClass,
-    setShoppigCartButtonClass] = useState(styles.shoppingCartButton);
+  const [cartAnimationClass, setCartAnimationClass] = useState('none');
+  const [showResume, setShowResume] = useState(false);
+
+  const location = useLocation();
+
+  const isCheckoutPage = location.pathname === '/shoppingcart/checkout';
 
   useEffect(() => {
     if (firstLoading) {
@@ -34,30 +39,33 @@ function App() {
     }
   }, [purchasedItens]);
 
-  useEffect(() => {
-    setShoppigCartButtonClass(styles.shoppingCartButton);
-  }, [quantityTotal]);
+  // useEffect(() => {
+  //   setCartAnimationClass(styles.shoppingCartButton);
+  // }, [quantityTotal]);
 
   useEffect(() => {
     localStorage.setItem('quantityTotal', JSON.stringify(quantityTotal));
     if (oldQuantity < quantityTotal) {
       setTimeout(() => {
-        setShoppigCartButtonClass(styles.shoppingCartButton);
+        setCartAnimationClass('none');
       }, 401);
-      setShoppigCartButtonClass(`${styles.shoppingCartButton} ${styles.increaseScale}`);
+      setCartAnimationClass(styles.increaseScale);
       setOldQuantity(quantityTotal);
     }
     if (oldQuantity > quantityTotal) {
-      setShoppigCartButtonClass(`${styles.shoppingCartButton} ${styles.decreaseScale}`);
+      setTimeout(() => {
+        setCartAnimationClass('none');
+      }, 401);
+      setCartAnimationClass(styles.decreaseScale);
       setOldQuantity(quantityTotal);
     }
   }, [quantityTotal]);
 
   return (
     <>
-      <nav className={ shoppigCartButtonClass }>
+      <div className={ styles.shoppingCartButton }>
         <Link
-          className={ styles.link }
+          className={ cartAnimationClass }
           to="/shoppingcart"
           data-testid="shopping-cart-button"
         >
@@ -68,11 +76,29 @@ function App() {
             { quantityTotal }
           </p>
         </Link>
-      </nav>
+        {!isCheckoutPage && (
+          <button
+            onClick={ () => {
+              setShowResume(!showResume);
+            } }
+          >
+            Resumo
+          </button>)}
+      </div>
+      <ProductsResume
+        showResume={ showResume }
+        setShowResume={ setShowResume }
+        purchasedItens={ purchasedItens }
+        setPurchased={ setPurchasedItens }
+        quantityTotal={ quantityTotal }
+        setQuantity={ setQuantityTotal }
+      />
       <Routes>
         <Route
           path="/"
           element={ <Home
+            showResume={ showResume }
+            setShowResume={ setShowResume }
             purchasedItens={ purchasedItens }
             setPurchased={ setPurchasedItens }
             quantityTotal={ quantityTotal }

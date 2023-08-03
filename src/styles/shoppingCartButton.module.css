@@ -1,3 +1,23 @@
+@keyframes increaseScale {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes decreaseScale {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0.8);
+  }
+}
+
 .shoppingCartButton {
   height: 0;
   left: 95%;
@@ -6,6 +26,16 @@
   padding: 0;
   position: relative;
   top: 55px;
+}
+
+.increaseScale {
+  animation-name: increaseScale;
+  animation-duration: 400ms;
+}
+
+.decreaseScale {
+  animation-name: decreaseScale;
+  animation-duration: 400ms;
 }
 
 .shoppingCartButton a {

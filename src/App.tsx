@@ -17,6 +17,10 @@ function App() {
     .parse(localStorage.getItem('quantityTotal') || '0');
   const [quantityTotal, setQuantityTotal] = useState(localStorageTotalQuantity);
 
+  const [oldQuantity, setOldQuantity] = useState(quantityTotal);
+  const [shoppigCartButtonClass,
+    setShoppigCartButtonClass] = useState(styles.shoppingCartButton);
+
   useEffect(() => {
     if (firstLoading) {
       const localStorageItens = JSON
@@ -31,12 +35,27 @@ function App() {
   }, [purchasedItens]);
 
   useEffect(() => {
+    setShoppigCartButtonClass(styles.shoppingCartButton);
+  }, [quantityTotal]);
+
+  useEffect(() => {
     localStorage.setItem('quantityTotal', JSON.stringify(quantityTotal));
+    if (oldQuantity < quantityTotal) {
+      setTimeout(() => {
+        setShoppigCartButtonClass(styles.shoppingCartButton);
+      }, 401);
+      setShoppigCartButtonClass(`${styles.shoppingCartButton} ${styles.increaseScale}`);
+      setOldQuantity(quantityTotal);
+    }
+    if (oldQuantity > quantityTotal) {
+      setShoppigCartButtonClass(`${styles.shoppingCartButton} ${styles.decreaseScale}`);
+      setOldQuantity(quantityTotal);
+    }
   }, [quantityTotal]);
 
   return (
     <>
-      <nav className={ styles.shoppingCartButton }>
+      <nav className={ shoppigCartButtonClass }>
         <Link
           className={ styles.link }
           to="/shoppingcart"

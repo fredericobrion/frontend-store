@@ -117,6 +117,8 @@ function App() {
         <Route
           path="/shoppingcart/checkout"
           element={ <PagePayments
+            quantityTotal={ quantityTotal }
+            setQuantity={ setQuantityTotal }
             setPurchased={ setPurchasedItens }
             purchasedItens={ purchasedItens }
           /> }

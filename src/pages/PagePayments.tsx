@@ -11,7 +11,8 @@ import elo from '../images/🦆 icon _elo_.svg';
 
 type PaymentProps = {
   purchasedItens: ProductInfo[],
-  setPurchased: (arg: ProductInfo[]) => void
+  setPurchased: (arg: ProductInfo[]) => void,
+  setQuantity: (arg: number) => void,
 };
 type UserInforTypes = {
   userName: string,
@@ -43,7 +44,11 @@ const INITIAL_VERIFICATION = {
   payment: false,
 };
 
-function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
+function PagePayments({
+  purchasedItens,
+  setPurchased,
+  setQuantity,
+}: PaymentProps) {
   const [userInfo, setUserInfo] = useState<UserInforTypes>(INITIAL_INFOS);
   const { userName, email, cpf, phone, cep, address } = userInfo;
   const [checkedStatus, setCheckedStatus] = useState<boolean>(true);
@@ -85,8 +90,11 @@ function PagePayments({ purchasedItens, setPurchased }: PaymentProps) {
     e.preventDefault();
     const allInputsOk = Object.values(isValid).every((input) => input === true);
     setCheckedStatus(allInputsOk);
-    if (allInputsOk) setPurchased([]);
-    if (allInputsOk) navigate('/');
+    if (allInputsOk) {
+      setPurchased([]);
+      setQuantity(0);
+      navigate('/');
+    }
   };
 
   return (

@@ -1,4 +1,6 @@
 import { ProductInfo } from '../types';
+import styles from '../styles/shoppingCartItens.module.css';
+import trash from '../images/trash.png';
 
 type ShoppingCartItensProps = {
   name: string,
@@ -12,11 +14,17 @@ type ShoppingCartItensProps = {
 };
 
 function ShoppingCartItens({
-  name, price, image, quantity = 0, purchasedItens, setPurchased,
-  setQuantity, quantityTotal }: ShoppingCartItensProps) {
+  name,
+  price,
+  image,
+  quantity = 0,
+  purchasedItens,
+  setPurchased,
+  setQuantity,
+  quantityTotal }
+: ShoppingCartItensProps) {
   const handleDelete = (itemName: string) => {
     const deletedItemIndex = purchasedItens.findIndex((item) => item.title === itemName);
-    console.log(purchasedItens[deletedItemIndex].quantity);
     setQuantity(quantityTotal - purchasedItens[deletedItemIndex].quantity);
     purchasedItens.splice(deletedItemIndex, 1);
     setPurchased([...purchasedItens]);
@@ -27,9 +35,9 @@ function ShoppingCartItens({
     const alterItem = purchasedItens[alterItemIndex];
     if (alterItem.quantity < alterItem.available_quantity) {
       alterItem.quantity = quantity + 1;
+      setPurchased([...purchasedItens]);
+      setQuantity(quantityTotal + 1);
     }
-    setPurchased([...purchasedItens]);
-    setQuantity(quantityTotal + 1);
   };
 
   const handleDecrease = (itemName: string) => {
@@ -37,34 +45,39 @@ function ShoppingCartItens({
     if (quantity > 1) {
       purchasedItens[alterItemIndex].quantity = quantity - 1;
       setPurchased([...purchasedItens]);
+      setQuantity(quantityTotal - 1);
     }
-    setQuantity(quantityTotal - 1);
   };
 
   return (
-    <div data-testid="product">
+    <div data-testid="product" className={ styles.container }>
       <button
         data-testid="remove-product"
         onClick={ () => handleDelete(name) }
       >
-        X
+        <img src={ trash } alt="Trash Can" />
       </button>
-      <h4 data-testid="shopping-cart-product-name">{name}</h4>
       <img src={ image } alt="Foto do produto" />
-      <p>{price}</p>
-      <button
-        data-testid="product-increase-quantity"
-        onClick={ () => handleIncrease(name) }
-      >
-        +
-      </button>
-      <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-      <button
-        data-testid="product-decrease-quantity"
-        onClick={ () => handleDecrease(name) }
-      >
-        -
-      </button>
+      <h4 data-testid="shopping-cart-product-name">{name}</h4>
+      <div className={ styles.quantity }>
+        <button
+          data-testid="product-increase-quantity"
+          onClick={ () => handleIncrease(name) }
+        >
+          +
+        </button>
+        <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+        <button
+          data-testid="product-decrease-quantity"
+          onClick={ () => handleDecrease(name) }
+        >
+          -
+        </button>
+      </div>
+      <p>
+        R$
+        <span>{` ${price.toFixed(2)}`}</span>
+      </p>
     </div>
   );
 }

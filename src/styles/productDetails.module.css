@@ -1,0 +1,82 @@
+.main {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  padding: 4rem;
+}
+
+.form h4 {
+  font-size: 1.3rem;
+}
+
+.main section {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  grid-column: 1 / 2;
+  height: 35vh;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  width: 80%;
+}
+
+.main section h4 {
+  font-size: 1.3rem;
+}
+
+.main section img {
+  height: auto;
+  max-height: 10rem;
+  max-width: 10rem;
+  width: auto;
+}
+
+.form {
+  align-items: center;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  grid-column: 2 / 3;
+  height: 35vh;
+  justify-content: space-around;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 80%;
+}
+
+input:nth-child( 2 ) {
+  border: 1px solid rgba(148, 151, 157, 1);
+  height: 2rem;
+  width: 20rem;
+}
+
+.ratingContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  justify-content: center;
+}
+
+.ratingContainer h5 {
+  display: inline;
+  font-size: 0.9rem;
+  text-align: center;
+  width: 100%;
+}
+
+.form button {
+  background-color: var(--green);
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 2rem;
+  transition: 200ms;
+  width: 10rem;
+}
+
+.form button:hover {
+  scale: 1.1;
+}
+

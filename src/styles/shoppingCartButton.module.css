@@ -1,0 +1,75 @@
+@keyframes increaseScale {
+
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes decreaseScale {
+
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(0.8);
+  }
+}
+
+.shoppingCartButton {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 0;
+  left: 85%;
+  margin: 0;
+  max-width: 10%;
+  padding: 0;
+  position: relative;
+  top: 40px;
+}
+
+.increaseScale {
+  animation-duration: 400ms;
+  animation-name: increaseScale;
+}
+
+.decreaseScale {
+  animation-duration: 400ms;
+  animation-name: decreaseScale;
+}
+
+.shoppingCartButton a {
+  text-decoration: none;
+}
+
+.shoppingCartButton p {
+  background-color: var(--green);
+  border-radius: 100%;
+  bottom: 2.8rem;
+  color: white;
+  height: 1.45rem;
+  left: 1.5rem;
+  position: relative;
+  text-align: center;
+  width: 1.45rem;
+}
+
+.shoppingCartButton button {
+  background-color: var(--green);
+  border: 1px solid white;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+.shoppingCartButton button:hover {
+  scale: 1.1;
+}

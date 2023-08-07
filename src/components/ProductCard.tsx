@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { ProductInfo } from '../types';
+import styles from '../styles/productCard.module.css';
 
 type ProductCardProps = {
   id: string,
@@ -44,14 +45,27 @@ function ProductCard({ name, id, available, shipping, quantityTotal, setQuantity
     }
   };
 
+  const isPurchased = purchasedItens.some((iten) => iten.title === name);
+  const classContainer = isPurchased
+    ? `${styles.container} ${styles.purchased}` : styles.container;
+
   return (
-    <div data-testid="product">
+    <div data-testid="product" className={ classContainer }>
       <Link to={ `/details/${id} ` } data-testid="product-detail-link">
-        <h4>{name}</h4>
         <img src={ image } alt="Foto do produto" />
-        <p>{price}</p>
+        <h4>{name}</h4>
+        <p>
+          R$
+          <strong>{` ${price}`}</strong>
+        </p>
       </Link>
-      {shipping && <span data-testid="free-shipping">Frete grátis</span>}
+      {shipping && (
+        <span
+          className={ styles.shipping }
+          data-testid="free-shipping"
+        >
+          Frete grátis
+        </span>)}
       <button
         data-testid="product-add-to-cart"
         onClick={ handleClick }

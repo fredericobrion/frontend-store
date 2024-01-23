@@ -21,7 +21,13 @@ O projeto é uma versão simplificada de uma loja online, alimentada pela API do
   ## Como utilizar
   - Clone o repositório e entre no diretório
   ```
-  
+  git clone git@github.com:fredericobrion/frontend-store.git && cd frontend-store
+  ```
+  - Instale as dependências:
+  ```
+  npm install
+  ```
+  - Utilize o comando ```npm run dev``` para abrir o projeto.
   
 
 <!-- Olá, Tryber!
